@@ -141,6 +141,7 @@ header {
   min-height: unset;
   padding: 16px 24px;
   text-align: center;
+  position: relative;
 }
 
 .date-str {
@@ -232,8 +233,10 @@ header {
 /* ── Favorites ── */
 #fav-sec {
   display: none;
-  padding: 40px 36px 60px;
+  padding: 24px 36px 60px;
   animation: fadeUp 0.45s ease;
+  min-height: 100dvh;
+  align-items: flex-start;
 }
 @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 
@@ -425,10 +428,10 @@ header {
 
 
 <!-- 画像プレビューモーダル -->
-<div id="img-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.88);flex-direction:column;align-items:center;justify-content:center;padding:24px;">
-  <p style="color:rgba(160,210,130,0.8);font-family:'Shippori Mincho B1',serif;font-size:0.72rem;letter-spacing:0.35em;margin-bottom:20px;">画像を長押しして「写真に保存」</p>
-  <img id="modal-img" src="" style="max-width:100%;max-height:70vh;border:1px solid rgba(100,170,60,0.3);" />
-  <button onclick="closeImgModal()" style="margin-top:24px;background:none;border:1px solid rgba(140,190,100,0.3);color:rgba(160,210,130,0.7);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:10px 28px;cursor:pointer;">閉 じ る</button>
+<div id="img-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top, 24px) 24px env(safe-area-inset-bottom, 24px);overflow-y:auto;">
+  <p style="color:rgba(160,210,130,0.8);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:16px 0 12px;text-align:center;flex-shrink:0;">画像を長押しして「写真に保存」</p>
+  <img id="modal-img" src="" style="width:100%;max-width:360px;object-fit:contain;border:1px solid rgba(100,170,60,0.3);flex-shrink:1;min-height:0;" />
+  <button onclick="closeImgModal()" style="margin:16px 0 8px;background:none;border:1px solid rgba(140,190,100,0.3);color:rgba(160,210,130,0.7);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:10px 32px;cursor:pointer;flex-shrink:0;">閉 じ る</button>
 </div>
 
 <!-- Off-screen capture -->
@@ -500,7 +503,7 @@ function jaDate() { const d=new Date(); return `${d.getFullYear()}年${d.getMont
 function dateKey() { const d=new Date(); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
 function getFavs() { try { return JSON.parse(localStorage.getItem('mori_favs')||'[]'); } catch { return []; } }
 function setFavs(f) { localStorage.setItem('mori_favs', JSON.stringify(f)); }
-function isFaved() { return getFavs().some(f=>f.text===todayQ().text); }
+function isFaved() { return getFavs().some(f=>f.text===QUOTES[currentIdx].text); }
 
 let _t;
 function pop(msg) {
@@ -577,6 +580,7 @@ function goFavs() {
   document.getElementById('controls').style.display='none';
   document.getElementById('fav-sec').style.display='block';
   document.getElementById('fav-tab').classList.add('active');
+  document.querySelector('.hr-branch').style.display='none';
   renderFavs();
 }
 function goQuote() {
@@ -584,6 +588,7 @@ function goQuote() {
   document.getElementById('quote-sec').style.display='';
   document.getElementById('controls').style.display='';
   document.getElementById('fav-tab').classList.remove('active');
+  document.querySelector('.hr-branch').style.display='';
 }
 function toggleFavSection() {
   const isShowing = document.getElementById('fav-sec').style.display === 'block';
@@ -609,15 +614,75 @@ function delFav(i) {
   syncBadge(); renderFavs(); pop('削除しました');
 }
 
+/* ── スワイプ名言管理 ── */
+let currentIdx = dayIdx() % QUOTES.length;
+
+function showQuote(idx, direction) {
+  const te = document.getElementById('q-text');
+  const ae = document.getElementById('q-author');
+  const de = document.getElementById('date-str');
+  const ie = document.getElementById('q-indicator');
+
+  // slide out
+  const outClass = direction === 'up' ? 'slide-up' : 'slide-down';
+  te.classList.remove('show'); te.classList.add(outClass);
+  ae.classList.remove('show'); ae.classList.add(outClass);
+  de.style.opacity = '0';
+
+  setTimeout(() => {
+    currentIdx = (idx + QUOTES.length) % QUOTES.length;
+    const q = QUOTES[currentIdx];
+
+    de.textContent = jaDate();
+    de.style.opacity = '1';
+
+    te.textContent = q.text;
+    ae.textContent = '— ' + q.author;
+    te.classList.remove('slide-up','slide-down','show');
+    ae.classList.remove('slide-up','slide-down','show');
+
+    requestAnimationFrame(() => {
+      te.classList.add('show');
+      ae.classList.add('show');
+    });
+
+    // sync fav button
+    syncFavBtn();
+  }, 350);
+}
+
+function todayQ() { return QUOTES[currentIdx]; }
+
+// タッチスワイプ
+(function initSwipe() {
+  const el = document.getElementById('quote-sec');
+  let startY = 0, startX = 0;
+
+  el.addEventListener('touchstart', e => {
+    startY = e.touches[0].clientY;
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  el.addEventListener('touchend', e => {
+    const dy = startY - e.changedTouches[0].clientY;
+    const dx = Math.abs(startX - e.changedTouches[0].clientX);
+    if (Math.abs(dy) > 50 && dx < 80) {
+      if (dy > 0) showQuote(currentIdx + 1, 'up');   // 上スワイプ → 次
+      else        showQuote(currentIdx - 1, 'down');  // 下スワイプ → 前
+    }
+  }, { passive: true });
+})();
+
 (function(){
-  document.getElementById('date-str').textContent=jaDate();
-  const q=todayQ();
-  setTimeout(()=>{
-    const te=document.getElementById('q-text');
-    const ae=document.getElementById('q-author');
-    te.textContent=q.text; ae.textContent='— '+q.author;
-    requestAnimationFrame(()=>{ te.classList.add('show'); ae.classList.add('show'); });
-  },300);
+  const te = document.getElementById('q-text');
+  const ae = document.getElementById('q-author');
+  document.getElementById('date-str').textContent = jaDate();
+  const q = QUOTES[currentIdx];
+  setTimeout(() => {
+    te.textContent = q.text;
+    ae.textContent = '— ' + q.author;
+    requestAnimationFrame(() => { te.classList.add('show'); ae.classList.add('show'); });
+  }, 300);
   syncFavBtn(); syncBadge();
 })();
 </script>
