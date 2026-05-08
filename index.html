@@ -563,12 +563,33 @@ function toggleFav() {
 }
 
 async function shareQuote() {
-  const q=todayQ();
-  const text=`${q.text}\n\n— ${q.author}`;
-  if(navigator.share) {
-    try { await navigator.share({title:'深呼吸をする森',text}); }
-    catch(e){ if(e.name!=='AbortError') copyFallback(text); }
-  } else { copyFallback(text); }
+  const q = todayQ();
+  const text = `${q.text}
+
+— ${q.author}`;
+
+  if (navigator.share && navigator.canShare) {
+    try {
+      const res = await fetch(SHARE_IMG_B64);
+      const blob = await res.blob();
+      const file = new File([blob], 'shinkokyuu-mori.png', { type: 'image/png' });
+      const shareData = { title: '深呼吸をする森', text, files: [file] };
+      if (navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+        return;
+      }
+      await navigator.share({ title: '深呼吸をする森', text });
+    } catch(e) {
+      if (e.name === 'AbortError') return;
+      try { await navigator.share({ title: '深呼吸をする森', text }); }
+      catch(e2) { if (e2.name !== 'AbortError') copyFallback(text); }
+    }
+  } else if (navigator.share) {
+    try { await navigator.share({ title: '深呼吸をする森', text }); }
+    catch(e) { if (e.name !== 'AbortError') copyFallback(text); }
+  } else {
+    copyFallback(text);
+  }
 }
 function copyFallback(text) {
   navigator.clipboard.writeText(text)
