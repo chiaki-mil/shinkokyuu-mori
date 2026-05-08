@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深呼吸をする森</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzA4MTMwYSIvPgogIDwhLS0g5pyo5ryP44KM5pelIC0tPgogIDxyYWRpYWxHcmFkaWVudCBpZD0iZzEiIGN4PSI1MCUiIGN5PSIwJSIgcj0iNzAlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM1YWFhMzAiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDgxMzBhIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJ1cmwoI2cxKSIvPgogIDwhLS0g5aWl44Gu5pyo77yI5bem77yJIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTgsNzIgMjYsNDAgMzQsNzIiIGZpbGw9IiMxYTQwMjAiIG9wYWNpdHk9IjAuOSIvPgogIDxyZWN0IHg9IjI1IiB5PSI3MiIgd2lkdGg9IjMiIGhlaWdodD0iMTQiIGZpbGw9IiMwZjI4MTAiLz4KICA8IS0tIOWlpeOBruacqO+8iOWPs++8iSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjY2LDY4IDc1LDM4IDg0LDY4IiBmaWxsPSIjMWU0YTI0IiBvcGFjaXR5PSIwLjg1Ii8+CiAgPHJlY3QgeD0iNzMiIHk9IjY4IiB3aWR0aD0iMyIgaGVpZ2h0PSIxNiIgZmlsbD0iIzBmMjgxMCIvPgogIDwhLS0g5omL5YmN44Gu5pyo77yI5Lit5aSu5aSn77yJIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMzUsODAgNTAsMjggNjUsODAiIGZpbGw9IiMyYTYwMzAiIG9wYWNpdHk9IjAuOTUiLz4KICA8cG9seWdvbiBwb2ludHM9IjM4LDcwIDUwLDQyIDYyLDcwIiBmaWxsPSIjMzQ4MDM4IiBvcGFjaXR5PSIwLjkiLz4KICA8cG9seWdvbiBwb2ludHM9IjQxLDYyIDUwLDUyIDU5LDYyIiBmaWxsPSIjM2E5MDQwIiBvcGFjaXR5PSIwLjg1Ii8+CiAgPHJlY3QgeD0iNDciIHk9IjgwIiB3aWR0aD0iNiIgaGVpZ2h0PSIxOCIgZmlsbD0iIzE0MzAxOCIvPgogIDwhLS0g6ZynIC0tPgogIDxyZWN0IHg9IjAiIHk9Ijc4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjIyIiBmaWxsPSIjMDgxMzBhIiBvcGFjaXR5PSIwLjciLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI4MCIgcng9IjYwIiByeT0iMTAiIGZpbGw9IiMwZDIwMTAiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0g5YWJ44Gu57KSIC0tPgogIDxjaXJjbGUgY3g9IjMwIiBjeT0iMzUiIHI9IjEuMiIgZmlsbD0iI2EwZTA2MCIgb3BhY2l0eT0iMC42Ii8+CiAgPGNpcmNsZSBjeD0iNjgiIGN5PSIyOCIgcj0iMC45IiBmaWxsPSIjYjBmMDcwIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjIwIiByPSIxLjAiIGZpbGw9IiM5MGQwNTAiIG9wYWNpdHk9IjAuNTUiLz4KPC9zdmc+">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzA4MTMwYSIvPgogIDwhLS0g5pyo5ryP44KM5pelIC0tPgogIDxyYWRpYWxHcmFkaWVudCBpZD0iZzEiIGN4PSI1MCUiIGN5PSIwJSIgcj0iNzAlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM1YWFhMzAiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDgxMzBhIiBzdG9wLW9wYWNpdHk9IjAiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJ1cmwoI2cxKSIvPgogIDwhLS0g5aWl44Gu5pyo77yI5bem77yJIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTgsNzIgMjYsNDAgMzQsNzIiIGZpbGw9IiMxYTQwMjAiIG9wYWNpdHk9IjAuOSIvPgogIDxyZWN0IHg9IjI1IiB5PSI3MiIgd2lkdGg9IjMiIGhlaWdodD0iMTQiIGZpbGw9IiMwZjI4MTAiLz4KICA8IS0tIOWlpeOBruacqO+8iOWPs++8iSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjY2LDY4IDc1LDM4IDg0LDY4IiBmaWxsPSIjMWU0YTI0IiBvcGFjaXR5PSIwLjg1Ii8+CiAgPHJlY3QgeD0iNzMiIHk9IjY4IiB3aWR0aD0iMyIgaGVpZ2h0PSIxNiIgZmlsbD0iIzBmMjgxMCIvPgogIDwhLS0g5omL5YmN44Gu5pyo77yI5Lit5aSu5aSn77yJIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMzUsODAgNTAsMjggNjUsODAiIGZpbGw9IiMyYTYwMzAiIG9wYWNpdHk9IjAuOTUiLz4KICA8cG9seWdvbiBwb2ludHM9IjM4LDcwIDUwLDQyIDYyLDcwIiBmaWxsPSIjMzQ4MDM4IiBvcGFjaXR5PSIwLjkiLz4KICA8cG9seWdvbiBwb2ludHM9IjQxLDYyIDUwLDUyIDU5LDYyIiBmaWxsPSIjM2E5MDQwIiBvcGFjaXR5PSIwLjg1Ii8+CiAgPHJlY3QgeD0iNDciIHk9IjgwIiB3aWR0aD0iNiIgaGVpZ2h0PSIxOCIgZmlsbD0iIzE0MzAxOCIvPgogIDwhLS0g6ZynIC0tPgogIDxyZWN0IHg9IjAiIHk9Ijc4IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjIyIiBmaWxsPSIjMDgxMzBhIiBvcGFjaXR5PSIwLjciLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI4MCIgcng9IjYwIiByeT0iMTAiIGZpbGw9IiMwZDIwMTAiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0g5YWJ44Gu57KSIC0tPgogIDxjaXJjbGUgY3g9IjMwIiBjeT0iMzUiIHI9IjEuMiIgZmlsbD0iI2EwZTA2MCIgb3BhY2l0eT0iMC42Ii8+CiAgPGNpcmNsZSBjeD0iNjgiIGN5PSIyOCIgcj0iMC45IiBmaWxsPSIjYjBmMDcwIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjIwIiByPSIxLjAiIGZpbGw9IiM5MGQwNTAiIG9wYWNpdHk9IjAuNTUiLz4KPC9zdmc+">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="深呼吸をする森">
+  <meta name="theme-color" content="#08130a">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  min-height: 100%;
+  font-family: 'Shippori Mincho B1', 'Noto Serif JP', serif;
+  overflow-x: hidden;
+  background: #08130a;
+}
+
+/* ── 森の背景レイヤー ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 30% 60% at 15% 0%,  rgba(120,180,60,0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 20% 50% at 75% 0%,  rgba(100,160,40,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 15% 40% at 45% 5%,  rgba(140,200,70,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 25% 55% at 88% 10%, rgba(90,150,30,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(4,10,5,0.9) 0%, transparent 80%),
+    radial-gradient(ellipse 80% 30% at 50% 80%,  rgba(10,25,12,0.7) 0%, transparent 70%),
+    linear-gradient(180deg, #0a1a0c 0%, #0d2010 40%, #0a1a0c 70%, #060e07 100%);
+  pointer-events: none;
+}
+
+/* ── 霧のアニメーション ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 120% 25% at 50% 88%, rgba(180,220,160,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 15% at 30% 75%, rgba(160,210,140,0.03) 0%, transparent 50%);
+  animation: mistDrift 18s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes mistDrift {
+  0%   { transform: translateX(-15px) translateY(0); opacity: 0.8; }
+  100% { transform: translateX(15px)  translateY(-8px); opacity: 1; }
+}
+
+.light-particles {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--particle-color);
+  border-radius: 50%;
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-80vh) translateX(20px); opacity: 0; }
+}
+
+#app {
+  position: relative; z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #d6eacc;
+}
+
+/* ── Header ── */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 24px 0;
+}
+
+.site-name {
+  font-size: 0.85rem;
+  letter-spacing: 0.62em;
+  color: rgba(160,210,130,0.6);
+  font-weight: 400;
+}
+
+.tab-btn {
+  background: none;
+  border: 1px solid rgba(140,190,100,0.25);
+  color: rgba(160,210,130,0.55);
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.32em;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.35s;
+}
+.tab-btn:hover, .tab-btn.active {
+  color: #d6eacc;
+  border-color: rgba(160,210,130,0.5);
+  background: rgba(80,140,50,0.12);
+}
+.badge { font-size: 0.58rem; margin-left: 4px; }
+
+/* ── 枝のセパレーター ── */
+.hr-branch {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 14px 24px 0;
+  opacity: 0.45;
+}
+.hr-branch::before,
+.hr-branch::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b8973a 30%, #b8973a 70%, transparent);
+  box-shadow: 0 0 6px rgba(184,151,58,0.4);
+}
+
+/* ── Quote section ── */
+#quote-sec {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: unset;
+  padding: 16px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.date-str {
+  font-size: 0.74rem;
+  letter-spacing: 0.52em;
+  color: rgba(160,210,120,0.55);
+  margin-bottom: 24px;
+}
+
+#q-card { width: 100%; max-width: 500px; }
+
+/* 名言テキスト — くっきり・大きく */
+#q-text {
+  font-size: clamp(1.0rem, 3.8vw, 1.4rem);
+  font-weight: 400;
+  line-height: 2.4;
+  letter-spacing: 0.1em;
+  color: #e8f5e0;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;
+  text-shadow:
+    0 0 60px rgba(100,200,60,0.15),
+    0 1px 2px rgba(0,0,0,0.8);
+}
+#q-text.show { opacity: 1; transform: none; }
+
+/* 著者 */
+#q-author {
+  margin-top: 20px;
+  font-size: 0.72rem;
+  letter-spacing: 0.45em;
+  color: rgba(140,195,100,0.65);
+  opacity: 0;
+  transition: opacity 1s ease 0.65s;
+}
+#q-author.show { opacity: 1; }
+
+/* ── Controls ── */
+#controls {
+  padding: 12px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-row { display: flex; gap: 12px; }
+
+.ctrl {
+  background: rgba(20,50,18,0.5);
+  border: 1px solid rgba(100,170,60,0.28);
+  color: rgba(160,210,120,0.7);
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: all 0.3s;
+  line-height: 1.6;
+  text-align: center;
+  min-width: 112px;
+  backdrop-filter: blur(4px);
+}
+.ctrl:hover {
+  color: #d6eacc;
+  border-color: rgba(160,210,130,0.5);
+  background: rgba(80,140,50,0.12);
+}
+.icon-btn { min-width: 52px; padding: 12px 16px; font-size: 1.1rem; line-height: 1; letter-spacing: 0; }
+.ctrl.fav-on {
+  color: #a8e060;
+  border-color: rgba(140,210,70,0.5);
+  background: rgba(50,100,25,0.45);
+}
+
+.save-link {
+  background: none;
+  border: none;
+  color: rgba(140,190,100,0.45);
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.48em;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.save-link:hover { color: rgba(180,230,130,0.85); }
+
+/* ── Favorites ── */
+#fav-sec {
+  display: none;
+  padding: 24px 36px 60px;
+  animation: fadeUp 0.45s ease;
+  min-height: 100dvh;
+  align-items: flex-start;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+.fav-sec-title {
+  text-align: center;
+  font-size: 0.63rem;
+  letter-spacing: 0.6em;
+  color: rgba(140,195,100,0.55);
+  margin-bottom: 44px;
+}
+
+.fav-list { max-width: 580px; margin: 0 auto; }
+
+.fav-item {
+  border-top: 1px solid rgba(80,140,50,0.2);
+  padding: 28px 0 24px;
+  position: relative;
+}
+.fav-item:last-child { border-bottom: 1px solid rgba(80,140,50,0.2); }
+
+.fav-text {
+  font-size: 0.96rem;
+  line-height: 2.4;
+  letter-spacing: 0.08em;
+  color: #d6eacc;
+  margin-bottom: 12px;
+  padding-right: 24px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+.fav-by {
+  font-size: 0.63rem;
+  letter-spacing: 0.4em;
+  color: rgba(140,195,100,0.55);
+}
+.fav-del {
+  position: absolute; top: 28px; right: 0;
+  background: none; border: none;
+  color: rgba(140,195,100,0.3);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 2px 4px;
+}
+.fav-del:hover { color: #d6eacc; }
+
+.fav-empty {
+  text-align: center; padding: 80px 0;
+  font-size: 0.76rem; letter-spacing: 0.38em;
+  color: rgba(140,195,100,0.4); line-height: 2.8;
+}
+
+.back-row { text-align: center; margin-top: 44px; }
+
+.nav-fav-btn {
+  background: rgba(20,50,18,0.5);
+  border: 1px solid rgba(100,170,60,0.28);
+  color: rgba(160,210,120,0.7);
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.35em;
+  padding: 9px 28px;
+  cursor: pointer;
+  transition: all 0.3s;
+  backdrop-filter: blur(4px);
+}
+.nav-fav-btn:hover, .nav-fav-btn.active {
+  color: #d6eacc;
+  border-color: rgba(130,200,80,0.55);
+  background: rgba(40,90,28,0.55);
+}
+.nav-badge { font-size: 0.58rem; margin-left: 4px; }
+
+/* ── 名言ナビ矢印 ── */
+.q-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 14px;
+}
+.q-nav-btn {
+  background: none;
+  border: 1px solid rgba(100,170,60,0.28);
+  color: rgba(160,210,120,0.65);
+  font-size: 1rem;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.q-nav-btn:hover {
+  color: #d6eacc;
+  border-color: rgba(130,200,80,0.55);
+  background: rgba(40,90,28,0.4);
+}
+
+/* ── Toast ── */
+#toast {
+  position: fixed; bottom: 32px; left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(8,20,9,0.92);
+  border: 1px solid rgba(100,170,60,0.3);
+  color: #c8e8a8;
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.64rem; letter-spacing: 0.28em;
+  padding: 12px 28px; opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s ease;
+  z-index: 100; white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+#toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Capture frame (壁紙サイズ 1080x1920) ── */
+#cf {
+  position: fixed; left: -9999px; top: 0;
+  width: 1080px;
+  height: 1920px;
+  background: #08130a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 120px;
+  /* 森の背景 */
+  background-image:
+    radial-gradient(ellipse 30% 60% at 15% 0%,  rgba(120,180,60,0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 20% 50% at 75% 0%,  rgba(100,160,40,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 15% 40% at 45% 5%,  rgba(140,200,70,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(4,10,5,0.9) 0%, transparent 80%),
+    linear-gradient(180deg, #0a1a0c 0%, #0d2010 40%, #0a1a0c 70%, #060e07 100%);
+}
+.cf-inner {
+  width: 100%;
+  max-width: 840px;
+}
+.cf-name { font-size: 1.1rem; letter-spacing: 0.62em; color: rgba(140,195,100,0.5); margin-bottom: 60px; font-family: 'Shippori Mincho B1', serif; }
+.cf-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(100,180,50,0.4), transparent); margin-bottom: 120px; }
+.cf-body { font-family: 'Shippori Mincho B1', serif; font-size: 2.2rem; line-height: 3.0; letter-spacing: 0.13em; color: #e8f5e0; margin-bottom: 100px; text-shadow: 0 0 60px rgba(100,200,60,0.15); }
+.cf-by { font-size: 1.1rem; letter-spacing: 0.5em; color: rgba(140,195,100,0.6); font-family: 'Shippori Mincho B1', serif; }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  header { padding: 28px 20px 0; }
+  .hr-branch { margin: 18px 20px 0; }
+  #quote-sec { padding: 12px 20px; }
+  #controls { padding: 12px 20px 24px; }
+  .ctrl { padding: 10px 14px; min-width: 46px; }
+  .icon-btn { padding: 10px 14px; min-width: 46px; }
+  #fav-sec { padding: 24px 20px 40px; }
+  #q-text { font-size: clamp(0.95rem, 4vw, 1.1rem); line-height: 2.3; }
+  .date-str { margin-bottom: 18px; font-size: 0.68rem; }
+  #q-author { margin-top: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 光の粒エフェクト -->
+<div class="light-particles" id="particles"></div>
+
+<div id="app">
+
+<header>
+  <span class="site-name">深 呼 吸 を す る 森</span>
+</header>
+
+<div class="hr-branch"></div>
+
+<!-- Quote -->
+<section id="quote-sec">
+  <p class="date-str" id="date-str"></p>
+  <div id="q-card">
+    <p id="q-text"></p>
+    <p id="q-author"></p>
+  </div>
+</section>
+
+<div id="controls">
+  <div class="btn-row">
+    <button class="ctrl icon-btn" id="fav-btn" onclick="toggleFav()">♡</button>
+    <button class="ctrl icon-btn" onclick="shareQuote()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 2L11 13"/>
+    <path d="M22 2L15 22 11 13 2 9l20-7z"/>
+  </svg>
+</button>
+    <button class="ctrl icon-btn" onclick="saveImg()">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+</button>
+  </div>
+  <div class="q-nav-row">
+    <button class="q-nav-btn" onclick="showQuote(currentIdx - 1, 'down')">←</button>
+    <button class="q-nav-btn" onclick="showQuote(currentIdx + 1, 'up')">→</button>
+  </div>
+  <button class="nav-fav-btn" id="fav-tab" onclick="toggleFavSection()">
+    お 気 に 入 り<span class="nav-badge" id="badge"></span>
+  </button>
+</div>
+
+<!-- Favorites -->
+<section id="fav-sec">
+  <p class="fav-sec-title">お 気 に 入 り の 名 言</p>
+  <div class="fav-list" id="fav-list"></div>
+  <div class="back-row">
+    <button class="save-link" onclick="goQuote()">← 今 日 の 名 言 へ 戻 る</button>
+  </div>
+</section>
+
+</div>
+
+
+
+<!-- 画像プレビューモーダル -->
+<div id="img-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top, 24px) 24px env(safe-area-inset-bottom, 24px);overflow-y:auto;">
+  <p style="color:rgba(160,210,130,0.8);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:16px 0 12px;text-align:center;flex-shrink:0;">画像を長押しして「写真に保存」</p>
+  <img id="modal-img" src="" style="width:100%;max-width:360px;object-fit:contain;border:1px solid rgba(100,170,60,0.3);flex-shrink:1;min-height:0;" />
+  <button onclick="closeImgModal()" style="margin:16px 0 8px;background:none;border:1px solid rgba(140,190,100,0.3);color:rgba(160,210,130,0.7);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:10px 32px;cursor:pointer;flex-shrink:0;">閉 じ る</button>
+</div>
+
+<!-- Off-screen capture -->
+<div id="cf">
+  <div class="cf-inner">
+    <div class="cf-name">深 呼 吸 を す る 森</div>
+    <div class="cf-rule"></div>
+    <div class="cf-body" id="cf-body"></div>
+    <div class="cf-by" id="cf-by"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ── 光の粒を生成 ── */
+(function spawnParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.top = (60 + Math.random() * 40) + 'vh';
+    p.style.width = p.style.height = (1 + Math.random() * 2.5) + 'px';
+    p.style.animationDuration = (12 + Math.random() * 20) + 's';
+    p.style.animationDelay = (Math.random() * 15) + 's';
+    p.style.opacity = 0;
+    container.appendChild(p);
+  }
+})();
+
+/* ── Quotes ── */
+const QUOTES = [
+  { text: "坂東玉三郎は「今度、生まれたら男になりたいか女になりたいか」と問われて「もう人間だけはいや」と答えた。立派である。ちゃんと現在を生きていない奴だけが、来世を悩む。", author: "糸井重里" },
+  { text: "人生は自転車のようなものだ。倒れないためには、走り続けなければならない。", author: "アルベルト・アインシュタイン" },
+  { text: "千里の道も、一歩から。", author: "老子" },
+  { text: "花が咲かないとき、花を責めるのではなく、環境を変えることを考えよ。", author: "日本の格言" },
+  { text: "あなたの時間は限られている。だから他の誰かの人生を生きることに費やさないで。", author: "スティーブ・ジョブズ" },
+  { text: "今日という日は、残りの人生の最初の日である。", author: "アビー・ホフマン" },
+  { text: "静かな水は、深く流れる。", author: "ヨーロッパの諺" },
+  { text: "他人と比べるな。昨日の自分と比べよ。", author: "キルケゴール" },
+  { text: "夢を見るから、人生は輝く。", author: "モーツァルト" },
+  { text: "愛することは、見つめ合うことではなく、共に同じ方向を見つめることである。", author: "サン＝テグジュペリ" },
+  { text: "大木は小さな種から生まれる。", author: "老子" },
+  { text: "自分自身を信じていれば、たとえ困難な状況でも前に進み続けることができる。", author: "ヘレン・ケラー" },
+  { text: "失敗とは、より賢く再挑戦するための素晴らしい機会である。", author: "ヘンリー・フォード" },
+  { text: "心が変われば行動が変わる。行動が変われば習慣が変わる。習慣が変われば人格が変わる。", author: "ウィリアム・ジェームズ" },
+  { text: "真の友は、あなたの沈黙の中にも耳を傾ける。", author: "ヘミングウェイ" },
+  { text: "太陽の光を求めるなら、まず暗闇の中に立つことを恐れてはならない。", author: "カール・ユング" },
+  { text: "人は、夢を諦めたときではなく、夢を見ることを忘れたときに老いる。", author: "サミュエル・ウルマン" },
+  { text: "できると思えばできる。できないと思えばできない。これは揺るぎない法則だ。", author: "パブロ・ピカソ" },
+  { text: "世界は一冊の本である。旅をしない者は、その本の一ページしか読まない。", author: "アウグスティヌス" },
+  { text: "過去を変えることはできないが、未来を創ることはできる。", author: "アブラハム・リンカーン" },
+  { text: "知恵のある者は、疑問を持つ。確信があるのは、無知な者だけである。", author: "ベルトラン・ラッセル" },
+  { text: "どんな嵐も、やがて凪を生む。", author: "シェイクスピア" },
+  { text: "人間の本質は、習慣の中にある。良い習慣を身につければ、それが運命を変える。", author: "アリストテレス" },
+  { text: "旅の途中で迷子になることは、実はその場所を発見することでもある。", author: "アーシュラ・K・ル＝グウィン" },
+  { text: "知識は力なり。しかし知恵は、それをどう使うかを知ることだ。", author: "フランシス・ベーコン" },
+  { text: "時間は決して戻らない。しかし記憶は永遠だ。", author: "ガルシア＝マルケス" },
+  { text: "花の香りは風に逆らっても漂う。しかし善き人の名声は、あらゆる方向へと広がる。", author: "仏陀" },
+  { text: "自由とは、責任を意味する。それゆえ、大多数の人は自由を恐れる。", author: "バーナード・ショー" },
+  { text: "勇気とは恐れを感じないことではなく、恐れよりも大切なものがあると判断することだ。", author: "アンブローズ・レドムーン" },
+  { text: "雨の後には虹が出る。嵐の後には平和が訪れる。", author: "日本の諺" },
+];
+
+function dayIdx() { const d=new Date(); return Math.floor((d-new Date(d.getFullYear(),0,0))/86400000); }
+function todayQ() { return QUOTES[dayIdx()%QUOTES.length]; }
+function jaDate() { const d=new Date(); return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`; }
+function dateKey() { const d=new Date(); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; }
+function getFavs() { try { return JSON.parse(localStorage.getItem('mori_favs')||'[]'); } catch { return []; } }
+function setFavs(f) { localStorage.setItem('mori_favs', JSON.stringify(f)); }
+function isFaved() { return getFavs().some(f=>f.text===QUOTES[currentIdx].text); }
+
+let _t;
+function pop(msg) {
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('on');
+  clearTimeout(_t); _t=setTimeout(()=>el.classList.remove('on'),2500);
+}
+
+function syncFavBtn() {
+  const btn=document.getElementById('fav-btn');
+  if(isFaved()){ btn.classList.add('fav-on'); btn.innerHTML='♥'; }
+  else { btn.classList.remove('fav-on'); btn.innerHTML='♡'; }
+}
+function syncBadge() {
+  const c=getFavs().length;
+  document.getElementById('badge').textContent=c>0?` (${c})`:'';
+}
+
+function toggleFav() {
+  const q=todayQ(); let favs=getFavs();
+  const i=favs.findIndex(f=>f.text===q.text);
+  if(i>=0){ favs.splice(i,1); pop('お気に入りから削除しました'); }
+  else { favs.unshift({...q,date:dateKey()}); pop('お気に入りに追加しました'); }
+  setFavs(favs); syncFavBtn(); syncBadge();
+}
+
+async function shareQuote() {
+  const q=todayQ();
+  const text=`${q.text}\n\n— ${q.author}`;
+  if(navigator.share) {
+    try { await navigator.share({title:'深呼吸をする森',text}); }
+    catch(e){ if(e.name!=='AbortError') copyFallback(text); }
+  } else { copyFallback(text); }
+}
+function copyFallback(text) {
+  navigator.clipboard.writeText(text)
+    .then(()=>pop('テキストをコピーしました'))
+    .catch(()=>pop('共有できませんでした'));
+}
+
+async function saveImg() {
+  pop('画像を生成しています...');
+  const q=todayQ();
+  document.getElementById('cf-body').textContent=q.text;
+  document.getElementById('cf-by').textContent='— '+q.author;
+  try {
+    const canvas=await html2canvas(document.getElementById('cf'),{
+      scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
+    });
+    const dataUrl=canvas.toDataURL('image/png');
+    // スマホ判定
+    const isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
+    if(isMobile){
+      // モーダルで画像を表示して長押し保存を促す
+      showImgModal(dataUrl);
+    } else {
+      const a=document.createElement('a');
+      a.download=`meigen-${dateKey()}.png`; a.href=dataUrl; a.click();
+      pop('画像を保存しました');
+    }
+  } catch(e){ pop('保存できませんでした'); }
+}
+
+function showImgModal(dataUrl){
+  document.getElementById('img-modal').style.display='flex';
+  document.getElementById('modal-img').src=dataUrl;
+}
+function closeImgModal(){
+  document.getElementById('img-modal').style.display='none';
+}
+
+function goFavs() {
+  document.getElementById('quote-sec').style.display='none';
+  document.getElementById('controls').style.display='none';
+  document.getElementById('fav-sec').style.display='block';
+  document.getElementById('fav-tab').classList.add('active');
+  document.querySelector('.hr-branch').style.display='none';
+  renderFavs();
+}
+function goQuote() {
+  document.getElementById('fav-sec').style.display='none';
+  document.getElementById('quote-sec').style.display='';
+  document.getElementById('controls').style.display='';
+  document.getElementById('fav-tab').classList.remove('active');
+  document.querySelector('.hr-branch').style.display='';
+}
+function toggleFavSection() {
+  const isShowing = document.getElementById('fav-sec').style.display === 'block';
+  if (isShowing) goQuote(); else goFavs();
+}
+
+function renderFavs() {
+  const list=document.getElementById('fav-list');
+  const favs=getFavs();
+  if(!favs.length){
+    list.innerHTML='<div class="fav-empty">まだお気に入りはありません。<br>今日の名言から保存してみましょう。</div>';
+    return;
+  }
+  list.innerHTML=favs.map((f,i)=>`
+    <div class="fav-item">
+      <button class="fav-del" onclick="delFav(${i})">✕</button>
+      <p class="fav-text">${f.text}</p>
+      <p class="fav-by">— ${f.author}</p>
+    </div>`).join('');
+}
+function delFav(i) {
+  const favs=getFavs(); favs.splice(i,1); setFavs(favs);
+  syncBadge(); renderFavs(); pop('削除しました');
+}
+
+/* ── スワイプ名言管理 ── */
+let currentIdx = dayIdx() % QUOTES.length;
+
+function showQuote(idx, direction) {
+  const te = document.getElementById('q-text');
+  const ae = document.getElementById('q-author');
+  const de = document.getElementById('date-str');
+  const ie = document.getElementById('q-indicator');
+
+  // slide out
+  const outClass = direction === 'up' ? 'slide-up' : 'slide-down';
+  te.classList.remove('show'); te.classList.add(outClass);
+  ae.classList.remove('show'); ae.classList.add(outClass);
+  de.style.opacity = '0';
+
+  setTimeout(() => {
+    currentIdx = (idx + QUOTES.length) % QUOTES.length;
+    const q = QUOTES[currentIdx];
+
+    de.textContent = jaDate();
+    de.style.opacity = '1';
+
+    te.textContent = q.text;
+    ae.textContent = '— ' + q.author;
+    te.classList.remove('slide-up','slide-down','show');
+    ae.classList.remove('slide-up','slide-down','show');
+
+    requestAnimationFrame(() => {
+      te.classList.add('show');
+      ae.classList.add('show');
+    });
+
+    // sync fav button
+    syncFavBtn();
+  }, 350);
+}
+
+function todayQ() { return QUOTES[currentIdx]; }
+
+
+
+(function(){
+  const te = document.getElementById('q-text');
+  const ae = document.getElementById('q-author');
+  document.getElementById('date-str').textContent = jaDate();
+  const q = QUOTES[currentIdx];
+  setTimeout(() => {
+    te.textContent = q.text;
+    ae.textContent = '— ' + q.author;
+    requestAnimationFrame(() => { te.classList.add('show'); ae.classList.add('show'); });
+  }, 300);
+  syncFavBtn(); syncBadge();
+})();
+</script>
+</body>
+</html>
