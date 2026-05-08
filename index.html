@@ -570,8 +570,12 @@ async function shareQuote() {
 
   if (navigator.share && navigator.canShare) {
     try {
-      const res = await fetch(SHARE_IMG_B64);
-      const blob = await res.blob();
+      // Base64をBlobに直接変換
+      const byteStr = atob(SHARE_IMG_B64.split(',')[1]);
+      const ab = new ArrayBuffer(byteStr.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteStr.length; i++) ia[i] = byteStr.charCodeAt(i);
+      const blob = new Blob([ab], { type: 'image/png' });
       const file = new File([blob], 'shinkokyuu-mori.png', { type: 'image/png' });
       const shareData = { title: '深呼吸をする森', text, files: [file] };
       if (navigator.canShare(shareData)) {
