@@ -309,6 +309,32 @@ header {
 }
 .nav-badge { font-size: 0.58rem; margin-left: 4px; }
 
+/* ── 名言ナビ矢印 ── */
+.q-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 14px;
+}
+.q-nav-btn {
+  background: none;
+  border: 1px solid rgba(100,170,60,0.28);
+  color: rgba(160,210,120,0.65);
+  font-size: 1rem;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.q-nav-btn:hover {
+  color: #d6eacc;
+  border-color: rgba(130,200,80,0.55);
+  background: rgba(40,90,28,0.4);
+}
+
 /* ── Toast ── */
 #toast {
   position: fixed; bottom: 32px; left: 50%;
@@ -408,6 +434,10 @@ header {
     <line x1="12" y1="15" x2="12" y2="3"/>
   </svg>
 </button>
+  </div>
+  <div class="q-nav-row">
+    <button class="q-nav-btn" onclick="showQuote(currentIdx - 1, 'down')">←</button>
+    <button class="q-nav-btn" onclick="showQuote(currentIdx + 1, 'up')">→</button>
   </div>
   <button class="nav-fav-btn" id="fav-tab" onclick="toggleFavSection()">
     お 気 に 入 り<span class="nav-badge" id="badge"></span>
@@ -653,25 +683,7 @@ function showQuote(idx, direction) {
 
 function todayQ() { return QUOTES[currentIdx]; }
 
-// タッチスワイプ
-(function initSwipe() {
-  const el = document.getElementById('quote-sec');
-  let startY = 0, startX = 0;
 
-  el.addEventListener('touchstart', e => {
-    startY = e.touches[0].clientY;
-    startX = e.touches[0].clientX;
-  }, { passive: true });
-
-  el.addEventListener('touchend', e => {
-    const dy = startY - e.changedTouches[0].clientY;
-    const dx = Math.abs(startX - e.changedTouches[0].clientX);
-    if (Math.abs(dy) > 50 && dx < 80) {
-      if (dy > 0) showQuote(currentIdx + 1, 'up');   // 上スワイプ → 次
-      else        showQuote(currentIdx - 1, 'down');  // 下スワイプ → 前
-    }
-  }, { passive: true });
-})();
 
 (function(){
   const te = document.getElementById('q-text');
