@@ -404,6 +404,15 @@ header {
   #q-author { margin-top: 16px; }
 }
 </style>
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "ef6b7c96-cad5-4e1a-966c-898759f921a4",
+      });
+    });
+  </script>
 </head>
 <body>
 
