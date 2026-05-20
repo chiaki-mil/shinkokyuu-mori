@@ -344,6 +344,92 @@ header {
   background: rgba(40,90,28,0.4);
 }
 
+/* ── 解説モーダル ── */
+#desc-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(4,10,5,0.85);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+.desc-box {
+  background: linear-gradient(145deg, #0d2010 0%, #0a1a0c 100%);
+  border: 1px solid rgba(100,170,60,0.28);
+  width: 100%;
+  max-width: 520px;
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.desc-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(100,170,60,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.desc-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.45em;
+  color: rgba(140,195,100,0.55);
+}
+
+.desc-close {
+  background: none;
+  border: none;
+  color: rgba(140,195,100,0.5);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 2px 6px;
+  line-height: 1;
+}
+.desc-close:hover { color: #d6eacc; }
+
+.desc-body {
+  padding: 28px 28px 32px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.desc-text {
+  font-size: 0.95rem;
+  line-height: 2.4;
+  letter-spacing: 0.06em;
+  color: #d6eacc;
+  font-weight: 300;
+}
+
+/* 解説ボタン */
+.desc-btn {
+  background: none;
+  border: none;
+  color: rgba(140,195,100,0.45);
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.45em;
+  cursor: pointer;
+  transition: color 0.3s;
+  padding: 0;
+  margin-top: 42px;
+  display: none;
+  width: 100%;
+  text-align: center;
+}
+.desc-btn:hover { color: rgba(180,230,130,0.85); }
+.desc-btn.visible { display: block; }
+
 /* ── Toast ── */
 #toast {
   position: fixed; bottom: 32px; left: 50%;
@@ -433,6 +519,7 @@ header {
   <div id="q-card">
     <p id="q-text"></p>
     <p id="q-author"></p>
+    <button class="desc-btn" id="desc-btn" onclick="openDesc()">― 解 説 を 読 む ―</button>
   </div>
 </section>
 
@@ -492,6 +579,19 @@ header {
   </div>
 </div>
 
+<!-- 解説モーダル -->
+<div id="desc-modal" onclick="closeDescOutside(event)">
+  <div class="desc-box">
+    <div class="desc-header">
+      <span class="desc-title">解 説</span>
+      <button class="desc-close" onclick="closeDesc()">✕</button>
+    </div>
+    <div class="desc-body">
+      <p class="desc-text" id="desc-text"></p>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
@@ -515,7 +615,7 @@ header {
 const QUOTES = [
   { text: "坂東玉三郎は「今度、生まれたら男になりたいか女になりたいか」と問われて「もう人間だけはいや」と答えた。立派である。ちゃんと現在を生きていない奴だけが、来世を悩む。" },
   { text: "人生は自転車のようなものだ。倒れないためには、走り続けなければならない。" },
-  { text: "千里の道も、一歩から。" },
+  { text: "千里の道も、一歩から。", description: "どんな大きな目標も、最初の一歩を踏み出すことから始まります。遠い道のりを前にして立ちすくむのではなく、今この瞬間にできる小さな一歩に集中すること。それが、やがて千里の旅を完成させる唯一の方法です。焦らず、でも止まらず。深呼吸をして、一歩を踏み出してみてください。" },
   { text: "花が咲かないとき、花を責めるのではなく、環境を変えることを考えよ。" },
   { text: "あなたの時間は限られている。だから他の誰かの人生を生きることに費やさないで。" },
   { text: "今日という日は、残りの人生の最初の日である。" },
@@ -576,6 +676,28 @@ function toggleFav() {
   if(i>=0){ favs.splice(i,1); pop('お気に入りから削除しました'); }
   else { favs.unshift({...q,date:dateKey()}); pop('お気に入りに追加しました'); }
   setFavs(favs); syncFavBtn(); syncBadge();
+}
+
+function openDesc() {
+  const q = todayQ();
+  if (!q.description) return;
+  document.getElementById('desc-text').textContent = q.description;
+  document.getElementById('desc-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeDesc() {
+  document.getElementById('desc-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function closeDescOutside(e) {
+  if (e.target === document.getElementById('desc-modal')) closeDesc();
+}
+
+function syncDescBtn() {
+  const q = todayQ();
+  const btn = document.getElementById('desc-btn');
+  if (q.description) btn.classList.add('visible');
+  else btn.classList.remove('visible');
 }
 
 async function shareQuote() {
@@ -700,6 +822,7 @@ function showQuote(idx, direction) {
 
     // sync fav button
     syncFavBtn();
+    syncDescBtn();
   }, 350);
 }
 
@@ -717,7 +840,7 @@ function todayQ() { return QUOTES[currentIdx]; }
     ae.textContent = '';
     requestAnimationFrame(() => { te.classList.add('show'); ae.classList.add('show'); });
   }, 300);
-  syncFavBtn(); syncBadge();
+  syncFavBtn(); syncBadge(); syncDescBtn();
 })();
 </script>
 </body>
