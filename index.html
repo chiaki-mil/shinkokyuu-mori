@@ -858,11 +858,13 @@ function getOrSetTodayIndex() {
 
 
 
-(function(){
+(async function(){
+  document.getElementById('date-str').textContent = jaDate();
+  await loadQuotes();
+  currentIdx = getOrSetTodayIndex();
+  const q = todayQ();
   const te = document.getElementById('q-text');
   const ae = document.getElementById('q-author');
-  document.getElementById('date-str').textContent = jaDate();
-  const q = QUOTES[currentIdx];
   setTimeout(() => {
     te.textContent = q.text;
     ae.textContent = '';
