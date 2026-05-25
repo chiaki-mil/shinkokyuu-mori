@@ -1,4 +1,4 @@
-name: 毎朝8時に通知を送る
+name: 毎朝8時に通知
 
 on:
   schedule:
