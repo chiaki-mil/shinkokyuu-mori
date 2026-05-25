@@ -616,7 +616,7 @@ let QUOTES = [];
 let quotesLoaded = false;
 
 async function loadQuotes() {
-  // 今日のキャッシュを確認
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbz705lvtEDwpgb9sH1gjLbO9_trSu8XfmcGn5TdWuxpZ7kgKsRF17S6k42YlyKO8CjylQ/exec';
   const today = dateKey();
   const cached = localStorage.getItem('mori_quotes_cache_date');
   const cachedQuotes = localStorage.getItem('mori_quotes_cache');
@@ -627,31 +627,21 @@ async function loadQuotes() {
     return;
   }
 
-  // キャッシュが古くても前のデータを先に表示
-  if (cachedQuotes) {
-    QUOTES = JSON.parse(cachedQuotes);
-    quotesLoaded = true;
-  }
-
   try {
-    // CSV形式で取得（より安定）
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=Sheet1`;
-    const res = await fetch(csvUrl);
-    const text = await res.text();
-    const lines = text.split('
-')
-      .map(l => l.trim().replace(/^"|"$/g, ''))
-      .filter(l => l.length > 0);
-
-    QUOTES = lines.map(text => ({ text }));
-
-    // 今日の日付でキャッシュ
-    localStorage.setItem('mori_quotes_cache_date', today);
-    localStorage.setItem('mori_quotes_cache', JSON.stringify(QUOTES));
+    const res = await fetch(GAS_URL);
+    const data = await res.json();
+    const words = data.allWords || data.words || data;
+    if (words && words.length > 0) {
+      QUOTES = words.map(text => ({ text: String(text) }));
+      localStorage.setItem('mori_quotes_cache_date', today);
+      localStorage.setItem('mori_quotes_cache', JSON.stringify(QUOTES));
+    }
     quotesLoaded = true;
   } catch(e) {
-    console.error('名言の読み込みに失敗しました', e);
-    if (QUOTES.length === 0) {
+    console.error('エラー:', e);
+    if (cachedQuotes) {
+      QUOTES = JSON.parse(cachedQuotes);
+    } else {
       QUOTES = [{ text: "森から、言葉が届きます。" }];
     }
     quotesLoaded = true;
