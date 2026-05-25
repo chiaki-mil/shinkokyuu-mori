@@ -430,6 +430,68 @@ header {
 .desc-btn:hover { color: rgba(180,230,130,0.85); }
 .desc-btn.visible { display: block; }
 
+/* ── ローディングアニメーション ── */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #1c2e1e;
+  transition: opacity 0.8s ease;
+}
+#loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.breath-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.breath-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(140,195,100,0.4);
+  animation: breathe 4s ease-in-out infinite;
+}
+.breath-ring:nth-child(1) {
+  width: 30px; height: 30px;
+  animation-delay: 0s;
+  border-color: rgba(140,195,100,0.8);
+}
+.breath-ring:nth-child(2) {
+  width: 55px; height: 55px;
+  animation-delay: 0.3s;
+  border-color: rgba(140,195,100,0.5);
+}
+.breath-ring:nth-child(3) {
+  width: 80px; height: 80px;
+  animation-delay: 0.6s;
+  border-color: rgba(140,195,100,0.25);
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(0.85); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+.breath-text {
+  margin-top: 32px;
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.5em;
+  color: rgba(140,195,100,0.45);
+  animation: breatheText 4s ease-in-out infinite;
+}
+@keyframes breatheText {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
 /* ── Toast ── */
 #toast {
   position: fixed; bottom: 32px; left: 50%;
@@ -504,6 +566,16 @@ header {
 
 <!-- 光の粒エフェクト -->
 <div class="light-particles" id="particles"></div>
+
+<!-- ローディング画面 -->
+<div id="loading-screen">
+  <div class="breath-circle">
+    <div class="breath-ring"></div>
+    <div class="breath-ring"></div>
+    <div class="breath-ring"></div>
+  </div>
+  <p class="breath-text">深 呼 吸 を す る 森</p>
+</div>
 
 <div id="app">
 
@@ -861,6 +933,11 @@ function getOrSetTodayIndex() {
     requestAnimationFrame(() => { te.classList.add('show'); ae.classList.add('show'); });
   }, 300);
   syncFavBtn(); syncBadge(); syncDescBtn();
+
+  // ローディング画面を非表示
+  const loadingScreen = document.getElementById('loading-screen');
+  loadingScreen.classList.add('hidden');
+  setTimeout(() => loadingScreen.style.display = 'none', 800);
 })();
 </script>
 </body>
