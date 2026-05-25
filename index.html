@@ -563,10 +563,10 @@ header {
 
 
 <!-- 画像プレビューモーダル -->
-<div id="img-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top, 24px) 24px env(safe-area-inset-bottom, 24px);overflow-y:auto;">
-  <p style="color:rgba(160,210,130,0.8);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:16px 0 12px;text-align:center;flex-shrink:0;">画像を長押しして「写真に保存」</p>
+<div id="img-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:center;padding:env(safe-area-inset-top, 24px) 24px env(safe-area-inset-bottom, 24px);overflow-y:auto;gap:16px;">
   <img id="modal-img" src="" style="width:100%;max-width:360px;object-fit:contain;border:1px solid rgba(100,170,60,0.3);flex-shrink:1;min-height:0;" />
-  <button onclick="closeImgModal()" style="margin:16px 0 8px;background:none;border:1px solid rgba(140,190,100,0.3);color:rgba(160,210,130,0.7);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:10px 32px;cursor:pointer;flex-shrink:0;">閉 じ る</button>
+  <p style="color:rgba(160,210,130,0.8);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;text-align:center;flex-shrink:0;">画像を長押しして「写真に保存」</p>
+  <button onclick="closeImgModal()" style="margin:4px 0 8px;background:none;border:1px solid rgba(140,190,100,0.3);color:rgba(160,210,130,0.7);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:10px 32px;cursor:pointer;flex-shrink:0;">閉 じ る</button>
 </div>
 
 <!-- Off-screen capture -->
@@ -575,7 +575,7 @@ header {
     <div class="cf-name">深 呼 吸 を す る 森</div>
     <div class="cf-rule"></div>
     <div class="cf-body" id="cf-body"></div>
-    <div class="cf-by" id="cf-by"></div>
+  
   </div>
 </div>
 
