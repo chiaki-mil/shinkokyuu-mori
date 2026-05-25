@@ -148,7 +148,7 @@ header {
   align-items: center;
   justify-content: center;
   min-height: unset;
-  padding: 16px 24px;
+  padding: 16px 24px 4px;
   text-align: center;
   position: relative;
 }
@@ -191,11 +191,11 @@ header {
 
 /* ── Controls ── */
 #controls {
-  padding: 12px 24px 24px;
+  padding: 4px 24px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .btn-row { display: flex; gap: 12px; }
@@ -543,7 +543,7 @@ header {
   header { padding: 28px 20px 0; }
   .hr-branch { margin: 18px 20px 0; }
   #quote-sec { padding: 12px 20px; }
-  #controls { padding: 12px 20px 24px; }
+  #controls { padding: 4px 20px 20px; }
   .ctrl { padding: 10px 14px; min-width: 46px; }
   .icon-btn { padding: 10px 14px; min-width: 46px; }
   #fav-sec { padding: 24px 20px 40px; }
@@ -614,7 +614,7 @@ header {
   </div>
   <div class="q-nav-row">
     <button class="q-nav-btn" onclick="showQuote(currentIdx - 1, 'down')">←</button>
-    <button class="q-nav-btn" onclick="showQuote(currentIdx + 1, 'up')">→</button>
+    <button class="q-nav-btn" onclick="showRandomQuote()">→</button>
   </div>
   <button class="nav-fav-btn" id="fav-tab" onclick="toggleFavSection()">
     お 気 に 入 り<span class="nav-badge" id="badge"></span>
@@ -773,6 +773,14 @@ function syncDescBtn() {
   const btn = document.getElementById('desc-btn');
   if (q.description) btn.classList.add('visible');
   else btn.classList.remove('visible');
+}
+
+function showRandomQuote() {
+  let newIdx;
+  do {
+    newIdx = Math.floor(Math.random() * QUOTES.length);
+  } while (newIdx === currentIdx && QUOTES.length > 1);
+  showQuote(newIdx, 'up');
 }
 
 async function shareQuote() {
