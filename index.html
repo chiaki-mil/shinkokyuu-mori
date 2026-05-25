@@ -630,15 +630,23 @@ async function loadQuotes() {
     return;
   }
 
+  // キャッシュが古くても前のデータを先に表示
+  if (cachedQuotes) {
+    QUOTES = JSON.parse(cachedQuotes);
+    quotesLoaded = true;
+  }
+
   try {
-    const res = await fetch(SHEET_URL);
+    // CSV形式で取得（より安定）
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&sheet=Sheet1`;
+    const res = await fetch(csvUrl);
     const text = await res.text();
-    // Googleのレスポンスからデータを抽出
-    const json = JSON.parse(text.substring(47, text.length - 2));
-    const rows = json.table.rows;
-    QUOTES = rows
-      .map(row => row.c[0] && row.c[0].v ? { text: String(row.c[0].v).trim() } : null)
-      .filter(q => q && q.text.length > 0);
+    const lines = text.split('
+')
+      .map(l => l.trim().replace(/^"|"$/g, ''))
+      .filter(l => l.length > 0);
+
+    QUOTES = lines.map(text => ({ text }));
 
     // 今日の日付でキャッシュ
     localStorage.setItem('mori_quotes_cache_date', today);
@@ -646,8 +654,9 @@ async function loadQuotes() {
     quotesLoaded = true;
   } catch(e) {
     console.error('名言の読み込みに失敗しました', e);
-    // フォールバック
-    QUOTES = [{ text: "森から、言葉が届きます。" }];
+    if (QUOTES.length === 0) {
+      QUOTES = [{ text: "森から、言葉が届きます。" }];
+    }
     quotesLoaded = true;
   }
 }
