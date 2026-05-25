@@ -613,7 +613,7 @@ header {
 </button>
   </div>
   <div class="q-nav-row">
-    <button class="q-nav-btn" onclick="showQuote(currentIdx - 1, 'down')">←</button>
+    <button class="q-nav-btn" onclick="showPrevQuote()">←</button>
     <button class="q-nav-btn" onclick="showRandomQuote()">→</button>
   </div>
   <button class="nav-fav-btn" id="fav-tab" onclick="toggleFavSection()">
@@ -686,6 +686,7 @@ header {
 /* ── Quotes ── */
 let QUOTES = [];
 let quotesLoaded = false;
+let history = [];
 
 async function loadQuotes() {
   const GAS_URL = 'https://script.google.com/macros/s/AKfycby3Lxzf7bo_lFlYSpMmO2g6s9RQ6O4fm1dU9Z6lpGKJCcy1cbRCd7rRyYt8LVbn12tL/exec';
@@ -776,11 +777,19 @@ function syncDescBtn() {
 }
 
 function showRandomQuote() {
+  history.push(currentIdx);
   let newIdx;
   do {
     newIdx = Math.floor(Math.random() * QUOTES.length);
   } while (newIdx === currentIdx && QUOTES.length > 1);
   showQuote(newIdx, 'up');
+}
+
+function showPrevQuote() {
+  if (history.length > 0) {
+    const prevIdx = history.pop();
+    showQuote(prevIdx, 'down');
+  }
 }
 
 async function shareQuote() {
