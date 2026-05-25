@@ -612,38 +612,45 @@ header {
 })();
 
 /* ── Quotes ── */
-const QUOTES = [
-  { text: "坂東玉三郎は「今度、生まれたら男になりたいか女になりたいか」と問われて「もう人間だけはいや」と答えた。立派である。ちゃんと現在を生きていない奴だけが、来世を悩む。" },
-  { text: "人生は自転車のようなものだ。倒れないためには、走り続けなければならない。" },
-  { text: "千里の道も、一歩から。", description: "どんな大きな目標も、最初の一歩を踏み出すことから始まります。遠い道のりを前にして立ちすくむのではなく、今この瞬間にできる小さな一歩に集中すること。それが、やがて千里の旅を完成させる唯一の方法です。焦らず、でも止まらず。深呼吸をして、一歩を踏み出してみてください。" },
-  { text: "花が咲かないとき、花を責めるのではなく、環境を変えることを考えよ。" },
-  { text: "あなたの時間は限られている。だから他の誰かの人生を生きることに費やさないで。" },
-  { text: "今日という日は、残りの人生の最初の日である。" },
-  { text: "静かな水は、深く流れる。" },
-  { text: "他人と比べるな。昨日の自分と比べよ。" },
-  { text: "夢を見るから、人生は輝く。" },
-  { text: "愛することは、見つめ合うことではなく、共に同じ方向を見つめることである。" },
-  { text: "大木は小さな種から生まれる。" },
-  { text: "自分自身を信じていれば、たとえ困難な状況でも前に進み続けることができる。" },
-  { text: "失敗とは、より賢く再挑戦するための素晴らしい機会である。" },
-  { text: "心が変われば行動が変わる。行動が変われば習慣が変わる。習慣が変われば人格が変わる。" },
-  { text: "真の友は、あなたの沈黙の中にも耳を傾ける。" },
-  { text: "太陽の光を求めるなら、まず暗闇の中に立つことを恐れてはならない。" },
-  { text: "人は、夢を諦めたときではなく、夢を見ることを忘れたときに老いる。" },
-  { text: "できると思えばできる。できないと思えばできない。これは揺るぎない法則だ。" },
-  { text: "世界は一冊の本である。旅をしない者は、その本の一ページしか読まない。" },
-  { text: "過去を変えることはできないが、未来を創ることはできる。" },
-  { text: "知恵のある者は、疑問を持つ。確信があるのは、無知な者だけである。" },
-  { text: "どんな嵐も、やがて凪を生む。" },
-  { text: "人間の本質は、習慣の中にある。良い習慣を身につければ、それが運命を変える。" },
-  { text: "旅の途中で迷子になることは、実はその場所を発見することでもある。" },
-  { text: "知識は力なり。しかし知恵は、それをどう使うかを知ることだ。" },
-  { text: "時間は決して戻らない。しかし記憶は永遠だ。" },
-  { text: "花の香りは風に逆らっても漂う。しかし善き人の名声は、あらゆる方向へと広がる。" },
-  { text: "自由とは、責任を意味する。それゆえ、大多数の人は自由を恐れる。" },
-  { text: "勇気とは恐れを感じないことではなく、恐れよりも大切なものがあると判断することだ。" },
-  { text: "雨の後には虹が出る。嵐の後には平和が訪れる。" },
-];
+let QUOTES = [];
+let quotesLoaded = false;
+
+const SHEET_ID = "10hC6pWwBIiNsD6SdS-9sEgOkNLiWbiygozoSUSJbil4";
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
+
+async function loadQuotes() {
+  // 今日のキャッシュを確認
+  const today = dateKey();
+  const cached = localStorage.getItem('mori_quotes_cache_date');
+  const cachedQuotes = localStorage.getItem('mori_quotes_cache');
+
+  if (cached === today && cachedQuotes) {
+    QUOTES = JSON.parse(cachedQuotes);
+    quotesLoaded = true;
+    return;
+  }
+
+  try {
+    const res = await fetch(SHEET_URL);
+    const text = await res.text();
+    // Googleのレスポンスからデータを抽出
+    const json = JSON.parse(text.substring(47, text.length - 2));
+    const rows = json.table.rows;
+    QUOTES = rows
+      .map(row => row.c[0] && row.c[0].v ? { text: String(row.c[0].v).trim() } : null)
+      .filter(q => q && q.text.length > 0);
+
+    // 今日の日付でキャッシュ
+    localStorage.setItem('mori_quotes_cache_date', today);
+    localStorage.setItem('mori_quotes_cache', JSON.stringify(QUOTES));
+    quotesLoaded = true;
+  } catch(e) {
+    console.error('名言の読み込みに失敗しました', e);
+    // フォールバック
+    QUOTES = [{ text: "森から、言葉が届きます。" }];
+    quotesLoaded = true;
+  }
+}
 
 function dayIdx() { const d=new Date(); return Math.floor((d-new Date(d.getFullYear(),0,0))/86400000); }
 function todayQ() { return QUOTES[dayIdx()%QUOTES.length]; }
@@ -722,7 +729,6 @@ async function saveImg() {
   pop('画像を生成しています...');
   const q=todayQ();
   document.getElementById('cf-body').textContent=q.text;
-  document.getElementById('cf-by').textContent='— '+q.author;
   try {
     const canvas=await html2canvas(document.getElementById('cf'),{
       scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
@@ -826,7 +832,23 @@ function showQuote(idx, direction) {
   }, 350);
 }
 
-function todayQ() { return QUOTES[currentIdx]; }
+function todayQ() { return QUOTES[currentIdx] || { text: "" }; }
+
+function getOrSetTodayIndex() {
+  const today = dateKey();
+  const savedDate = localStorage.getItem('mori_today_date');
+  const savedIdx = localStorage.getItem('mori_today_idx');
+
+  if (savedDate === today && savedIdx !== null && QUOTES.length > 0) {
+    return parseInt(savedIdx);
+  }
+
+  // 新しいランダムインデックスを選択
+  const newIdx = Math.floor(Math.random() * QUOTES.length);
+  localStorage.setItem('mori_today_date', today);
+  localStorage.setItem('mori_today_idx', String(newIdx));
+  return newIdx;
+}
 
 
 
