@@ -1,0 +1,24 @@
+name: 毎朝8時に通知を送る
+
+on:
+  schedule:
+    - cron: '0 23 * * *'  # UTC 23:00 = JST 08:00
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  send-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: OneSignalに通知を送る
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Key ${{ secrets.ONESIGNAL_API_KEY }}" \
+            -d '{
+              "app_id": "${{ secrets.ONESIGNAL_APP_ID }}",
+              "included_segments": ["Total Subscriptions"],
+              "headings": {"en": "深呼吸をする森"},
+              "contents": {"en": "森から、今日の言葉が届きました。"},
+              "url": "https://chiaki-mil.github.io/shinkokyuu-mori/"
+            }' \
+            https://onesignal.com/api/v1/notifications
