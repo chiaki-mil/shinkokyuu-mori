@@ -793,9 +793,7 @@ function showPrevQuote() {
 
 async function shareQuote() {
   const q = todayQ();
-  const text = `${q.text}
-
-— ${q.author}`;
+  const text = q.text;
   if (navigator.share) {
     try { await navigator.share({ title: '深呼吸をする森', text }); }
     catch(e) { if (e.name !== 'AbortError') copyFallback(text); }
