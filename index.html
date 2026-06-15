@@ -85,90 +85,102 @@ body::after {
   position: relative; z-index: 1;
   min-height: 100dvh;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: #d6eacc;
-}
-
-/* ── Header ── */
-header {
-  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  padding: 18px 24px 0;
-}
-
-.site-name {
-  font-size: 0.85rem;
-  letter-spacing: 0.62em;
-  color: rgba(160,210,130,0.6);
-  font-weight: 400;
-}
-
-.tab-btn {
-  background: none;
-  border: 1px solid rgba(140,190,100,0.25);
-  color: rgba(160,210,130,0.55);
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 0.64rem;
-  letter-spacing: 0.32em;
-  padding: 7px 16px;
-  cursor: pointer;
-  transition: all 0.35s;
-}
-.tab-btn:hover, .tab-btn.active {
+  padding: 28px 16px;
   color: #d6eacc;
-  border-color: rgba(160,210,130,0.5);
-  background: rgba(80,140,50,0.12);
 }
-.badge { font-size: 0.58rem; margin-left: 4px; }
 
-/* ── 枝のセパレーター ── */
-.hr-branch {
+/* ── ガラスカード ── */
+.glass-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  min-height: calc(100dvh - 56px);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 32px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+/* ── メニューボタン ── */
+.menu-btn {
+  position: absolute;
+  top: 24px; right: 24px;
   display: flex;
   align-items: center;
-  gap: 0;
-  margin: 14px 24px 0;
-  opacity: 0.45;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.85);
+  cursor: pointer;
+  padding: 6px;
+  transition: color 0.3s;
+  z-index: 2;
 }
-.hr-branch::before,
-.hr-branch::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #b8973a 30%, #b8973a 70%, transparent);
-  box-shadow: 0 0 6px rgba(184,151,58,0.4);
+.menu-btn:hover, .menu-btn.active { color: #fff; }
+.menu-badge {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgba(168,224,96,0.9);
 }
+
+/* ── 名言ナビ矢印（カード外） ── */
+.edge-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.75);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  backdrop-filter: blur(6px);
+  z-index: 5;
+}
+.edge-nav:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.14);
+}
+.edge-nav--prev { left: 12px; }
+.edge-nav--next { right: 12px; }
 
 /* ── Quote section ── */
 #quote-sec {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: unset;
-  padding: 16px 24px 0;
+  padding: 48px 0 0;
   text-align: center;
-  position: relative;
 }
 
 .date-str {
-  font-size: 0.74rem;
-  letter-spacing: 0.52em;
-  color: rgba(160,210,120,0.55);
-  margin-bottom: 24px;
+  font-size: 0.85rem;
+  letter-spacing: 0.5em;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-#q-card { width: 100%; max-width: 500px; }
+#q-card { width: 100%; }
 
 /* 名言テキスト — くっきり・大きく */
 #q-text {
-  font-size: clamp(1.0rem, 3.8vw, 1.4rem);
-  font-weight: 400;
-  line-height: 2.4;
-  letter-spacing: 0.1em;
-  color: #e8f5e0;
+  font-size: clamp(1.05rem, 4.2vw, 1.5rem);
+  font-weight: 500;
+  line-height: 2.2;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-align: left;
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;
@@ -191,40 +203,44 @@ header {
 
 /* ── Controls ── */
 #controls {
-  padding: 0 24px 16px;
+  padding: 24px 0 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
-.btn-row { display: flex; gap: 12px; }
+.btn-row { display: flex; gap: 20px; justify-content: center; }
 
-.ctrl {
-  background: rgba(20,50,18,0.5);
-  border: 1px solid rgba(100,170,60,0.28);
-  color: rgba(160,210,120,0.7);
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  padding: 14px 28px;
+.icon-circle {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.85);
+  font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: all 0.3s;
-  line-height: 1.6;
-  text-align: center;
-  min-width: 112px;
-  backdrop-filter: blur(4px);
 }
-.ctrl:hover {
-  color: #d6eacc;
-  border-color: rgba(160,210,130,0.5);
-  background: rgba(80,140,50,0.12);
+.icon-circle:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.15);
 }
-.icon-btn { min-width: 52px; padding: 12px 16px; font-size: 1.1rem; line-height: 1; letter-spacing: 0; }
-.ctrl.fav-on {
+.icon-circle.fav-on {
   color: #a8e060;
-  border-color: rgba(140,210,70,0.5);
-  background: rgba(50,100,25,0.45);
+  border-color: rgba(168,224,96,0.6);
+  background: rgba(80,140,50,0.18);
+}
+
+/* ── カードフッター ── */
+.card-footer {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.5);
 }
 
 .save-link {
@@ -242,10 +258,10 @@ header {
 /* ── Favorites ── */
 #fav-sec {
   display: none;
-  padding: 24px 36px 60px;
+  flex: 1;
+  flex-direction: column;
+  padding: 48px 0 8px;
   animation: fadeUp 0.45s ease;
-  min-height: 100dvh;
-  align-items: flex-start;
 }
 @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 
@@ -298,50 +314,6 @@ header {
 }
 
 .back-row { text-align: center; margin-top: 44px; }
-
-.nav-fav-btn {
-  background: rgba(20,50,18,0.5);
-  border: 1px solid rgba(100,170,60,0.28);
-  color: rgba(160,210,120,0.7);
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 0.64rem;
-  letter-spacing: 0.35em;
-  padding: 9px 28px;
-  cursor: pointer;
-  transition: all 0.3s;
-  backdrop-filter: blur(4px);
-}
-.nav-fav-btn:hover, .nav-fav-btn.active {
-  color: #d6eacc;
-  border-color: rgba(130,200,80,0.55);
-  background: rgba(40,90,28,0.55);
-}
-.nav-badge { font-size: 0.58rem; margin-left: 4px; }
-
-/* ── 名言ナビ矢印 ── */
-.q-nav-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-}
-.q-nav-btn {
-  background: none;
-  border: 1px solid rgba(100,170,60,0.28);
-  color: rgba(160,210,120,0.65);
-  font-size: 1rem;
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-.q-nav-btn:hover {
-  color: #d6eacc;
-  border-color: rgba(130,200,80,0.55);
-  background: rgba(40,90,28,0.4);
-}
 
 /* ── 解説モーダル ── */
 #desc-modal {
@@ -540,16 +512,15 @@ header {
 
 /* ── Responsive ── */
 @media (max-width: 480px) {
-  header { padding: 28px 20px 0; }
-  .hr-branch { margin: 18px 20px 0; }
-  #quote-sec { padding: 12px 20px; }
-  #controls { padding: 0 20px 16px; }
-  .ctrl { padding: 10px 14px; min-width: 46px; }
-  .icon-btn { padding: 10px 14px; min-width: 46px; }
-  #fav-sec { padding: 24px 20px 40px; }
+  .glass-card { padding: 24px 18px; border-radius: 24px; }
+  #quote-sec { padding: 44px 4px 0; }
+  .icon-circle { width: 50px; height: 50px; }
   #q-text { font-size: clamp(0.95rem, 4vw, 1.1rem); line-height: 2.3; }
   .date-str { margin-bottom: 18px; font-size: 0.68rem; }
   #q-author { margin-top: 16px; }
+  .edge-nav { width: 38px; height: 38px; }
+  .edge-nav--prev { left: 6px; }
+  .edge-nav--next { right: 6px; }
 }
 </style>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -577,56 +548,62 @@ header {
 
 <div id="app">
 
-<header>
-  <span class="site-name">深 呼 吸 を す る 森</span>
-</header>
-
-<div class="hr-branch"></div>
-
-<!-- Quote -->
-<section id="quote-sec">
-  <p class="date-str" id="date-str"></p>
-  <div id="q-card">
-    <p id="q-text"></p>
-    <p id="q-author"></p>
-    <button class="desc-btn" id="desc-btn" onclick="openDesc()">― 解 説 を 読 む ―</button>
-  </div>
-</section>
-
-<div id="controls">
-  <div class="btn-row">
-    <button class="ctrl icon-btn" id="fav-btn" onclick="toggleFav()">♡</button>
-    <button class="ctrl icon-btn" onclick="shareQuote()">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 2L11 13"/>
-    <path d="M22 2L15 22 11 13 2 9l20-7z"/>
-  </svg>
+<!-- 名言ナビ矢印 -->
+<button class="edge-nav edge-nav--prev" onclick="showPrevQuote()" aria-label="前の言葉">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
 </button>
-    <button class="ctrl icon-btn" onclick="saveImg()">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-    <polyline points="7 10 12 15 17 10"/>
-    <line x1="12" y1="15" x2="12" y2="3"/>
-  </svg>
+<button class="edge-nav edge-nav--next" onclick="showRandomQuote()" aria-label="次の言葉">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
 </button>
-  </div>
-  <div class="q-nav-row">
-    <button class="q-nav-btn" onclick="showPrevQuote()">←</button>
-    <button class="q-nav-btn" onclick="showRandomQuote()">→</button>
-  </div>
-  <button class="nav-fav-btn" id="fav-tab" onclick="toggleFavSection()">
-    お 気 に 入 り<span class="nav-badge" id="badge"></span>
+
+<div class="glass-card">
+
+  <button class="menu-btn" id="fav-tab" onclick="toggleFavSection()" aria-label="お気に入り">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <span class="menu-badge" id="badge"></span>
   </button>
-</div>
 
-<!-- Favorites -->
-<section id="fav-sec">
-  <p class="fav-sec-title">お 気 に 入 り の 言 葉</p>
-  <div class="fav-list" id="fav-list"></div>
-  <div class="back-row">
-    <button class="save-link" onclick="goQuote()">← 今 日 の 言 葉 に 戻 る</button>
+  <!-- Quote -->
+  <section id="quote-sec">
+    <p class="date-str" id="date-str"></p>
+    <div id="q-card">
+      <p id="q-text"></p>
+      <p id="q-author"></p>
+      <button class="desc-btn" id="desc-btn" onclick="openDesc()">― 解 説 を 読 む ―</button>
+    </div>
+  </section>
+
+  <div id="controls">
+    <div class="btn-row">
+      <button class="icon-circle" id="fav-btn" onclick="toggleFav()">♡</button>
+      <button class="icon-circle" onclick="shareQuote()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 2L11 13"/>
+      <path d="M22 2L15 22 11 13 2 9l20-7z"/>
+    </svg>
+  </button>
+      <button class="icon-circle" onclick="saveImg()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+  </button>
+    </div>
   </div>
-</section>
+
+  <p class="card-footer" id="card-footer">深 呼 吸 す る 森 ©️ 橘 川 幸 夫</p>
+
+  <!-- Favorites -->
+  <section id="fav-sec">
+    <p class="fav-sec-title">お 気 に 入 り の 言 葉</p>
+    <div class="fav-list" id="fav-list"></div>
+    <div class="back-row">
+      <button class="save-link" onclick="goQuote()">← 今 日 の 言 葉 に 戻 る</button>
+    </div>
+  </section>
+
+</div>
 
 </div>
 
@@ -839,20 +816,22 @@ function closeImgModal(){
 function goFavs() {
   document.getElementById('quote-sec').style.display='none';
   document.getElementById('controls').style.display='none';
-  document.getElementById('fav-sec').style.display='block';
+  document.getElementById('card-footer').style.display='none';
+  document.getElementById('fav-sec').style.display='flex';
   document.getElementById('fav-tab').classList.add('active');
-  document.querySelector('.hr-branch').style.display='none';
+  document.querySelectorAll('.edge-nav').forEach(el => el.style.display='none');
   renderFavs();
 }
 function goQuote() {
   document.getElementById('fav-sec').style.display='none';
   document.getElementById('quote-sec').style.display='';
   document.getElementById('controls').style.display='';
+  document.getElementById('card-footer').style.display='';
   document.getElementById('fav-tab').classList.remove('active');
-  document.querySelector('.hr-branch').style.display='';
+  document.querySelectorAll('.edge-nav').forEach(el => el.style.display='');
 }
 function toggleFavSection() {
-  const isShowing = document.getElementById('fav-sec').style.display === 'block';
+  const isShowing = document.getElementById('fav-sec').style.display === 'flex';
   if (isShowing) goQuote(); else goFavs();
 }
 
