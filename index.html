@@ -182,6 +182,16 @@ body::after {
 }
 #q-text.show { opacity: 1; transform: none; }
 
+/* 文字数が多い名言は文字サイズ・行間を縮小して収まりを調整 */
+#q-text.q-text-long {
+  font-size: clamp(0.88rem, 4.4cqw, 1.4rem);
+  line-height: 1.7;
+}
+#q-text.q-text-xlong {
+  font-size: clamp(0.78rem, 3.7cqw, 1.2rem);
+  line-height: 1.55;
+}
+
 /* 著者 */
 #q-author {
   margin-top: 12px;
@@ -1040,6 +1050,13 @@ function delFav(i) {
 /* ── スワイプ名言管理 ── */
 let currentIdx = dayIdx() % QUOTES.length;
 
+function applyQText(te, text) {
+  te.textContent = text;
+  te.classList.remove('q-text-long', 'q-text-xlong');
+  if (text.length > 80) te.classList.add('q-text-xlong');
+  else if (text.length > 50) te.classList.add('q-text-long');
+}
+
 function showQuote(idx, direction) {
   const te = document.getElementById('q-text');
   const ae = document.getElementById('q-author');
@@ -1059,7 +1076,7 @@ function showQuote(idx, direction) {
     de.textContent = jaDate();
     de.style.opacity = '1';
 
-    te.textContent = q.text;
+    applyQText(te, q.text);
     ae.textContent = '';
     te.classList.remove('slide-up','slide-down','show');
     ae.classList.remove('slide-up','slide-down','show');
@@ -1103,7 +1120,7 @@ function getOrSetTodayIndex() {
   const te = document.getElementById('q-text');
   const ae = document.getElementById('q-author');
   setTimeout(() => {
-    te.textContent = q.text;
+    applyQText(te, q.text);
     ae.textContent = '';
     requestAnimationFrame(() => { te.classList.add('show'); ae.classList.add('show'); });
   }, 300);
