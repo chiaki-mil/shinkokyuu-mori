@@ -435,59 +435,60 @@ header {
   inset: 0;
   z-index: 50;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #0b1a0e;
+  background:
+    radial-gradient(ellipse 30% 60% at 15% 0%,  rgba(120,180,60,0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 20% 50% at 75% 0%,  rgba(100,160,40,0.10) 0%, transparent 65%),
+    rgba(10,37,28,0.92);
   transition: opacity 0.8s ease;
 }
 #loading-screen.hidden {
   opacity: 0;
   pointer-events: none;
 }
-.breath-circle {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.breath-ring {
+.loading-circle {
   position: absolute;
+  top: 50%;
+  left: 50%;
   border-radius: 50%;
-  border: 1px solid rgba(140,195,100,0.4);
-  animation: breathe 4s ease-in-out infinite;
+  border: 1px solid rgba(200,230,170,0.45);
+  transform: translate(-50%, -50%) scale(0.9);
+  animation: loadingBreathe 4s ease-in-out infinite;
 }
-.breath-ring:nth-child(1) {
-  width: 30px; height: 30px;
+.loading-circle--1 {
+  width: 33vmin; height: 33vmin;
   animation-delay: 0s;
-  border-color: rgba(140,195,100,0.8);
+  border-color: rgba(220,240,190,0.6);
 }
-.breath-ring:nth-child(2) {
-  width: 55px; height: 55px;
+.loading-circle--2 {
+  width: 50vmin; height: 50vmin;
   animation-delay: 0.3s;
-  border-color: rgba(140,195,100,0.5);
+  border-color: rgba(200,230,170,0.4);
 }
-.breath-ring:nth-child(3) {
-  width: 80px; height: 80px;
+.loading-circle--3 {
+  width: 72vmin; height: 72vmin;
   animation-delay: 0.6s;
-  border-color: rgba(140,195,100,0.25);
+  border-color: rgba(180,220,150,0.22);
 }
-@keyframes breathe {
-  0%, 100% { transform: scale(0.85); opacity: 0.4; }
-  50% { transform: scale(1.15); opacity: 1; }
+@keyframes loadingBreathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
 }
 .breath-text {
-  margin-top: 32px;
+  position: relative;
+  z-index: 1;
+  writing-mode: vertical-rl;
   font-family: 'Shippori Mincho B1', serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.5em;
-  color: rgba(140,195,100,0.45);
+  font-size: clamp(1.3rem, 6vmin, 1.8rem);
+  line-height: 1.9;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
   animation: breatheText 4s ease-in-out infinite;
 }
 @keyframes breatheText {
-  0%, 100% { opacity: 0.3; }
+  0%, 100% { opacity: 0.35; }
   50% { opacity: 0.7; }
 }
 
@@ -568,12 +569,10 @@ header {
 
 <!-- ローディング画面 -->
 <div id="loading-screen">
-  <div class="breath-circle">
-    <div class="breath-ring"></div>
-    <div class="breath-ring"></div>
-    <div class="breath-ring"></div>
-  </div>
-  <p class="breath-text">深 呼 吸 を す る 森</p>
+  <div class="loading-circle loading-circle--1"></div>
+  <div class="loading-circle loading-circle--2"></div>
+  <div class="loading-circle loading-circle--3"></div>
+  <p class="breath-text">深呼吸する森</p>
 </div>
 
 <div id="app">
