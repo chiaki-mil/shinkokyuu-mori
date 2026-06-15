@@ -213,11 +213,13 @@ body::after {
   border-color: rgba(255,255,255,0.6);
   background: rgba(255,255,255,0.16);
 }
+.icon-circle svg { width: 1.6em; height: 1.6em; }
 .icon-circle.fav-on {
   color: #a8e060;
   border-color: rgba(168,224,96,0.6);
   background: rgba(80,140,50,0.18);
 }
+.icon-circle.fav-on svg { fill: currentColor; }
 #fav-btn { left: 17.06%; }
 #share-btn { left: 42.78%; }
 #save-btn { left: 68.5%; }
@@ -550,15 +552,20 @@ body::after {
       <button class="desc-btn" id="desc-btn" onclick="openDesc()">― 解 説 を 読 む ―</button>
     </div>
 
-    <button class="icon-circle" id="fav-btn" onclick="toggleFav()">♡</button>
+    <button class="icon-circle" id="fav-btn" onclick="toggleFav()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </button>
     <button class="icon-circle" id="share-btn" onclick="shareQuote()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 2L11 13"/>
-        <path d="M22 2L15 22 11 13 2 9l20-7z"/>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
       </svg>
     </button>
     <button class="icon-circle" id="save-btn" onclick="saveImg()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
@@ -687,8 +694,7 @@ function pop(msg) {
 
 function syncFavBtn() {
   const btn=document.getElementById('fav-btn');
-  if(isFaved()){ btn.classList.add('fav-on'); btn.innerHTML='♥'; }
-  else { btn.classList.remove('fav-on'); btn.innerHTML='♡'; }
+  btn.classList.toggle('fav-on', isFaved());
 }
 function syncBadge() {
   const c=getFavs().length;
