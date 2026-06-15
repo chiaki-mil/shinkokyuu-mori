@@ -134,7 +134,8 @@ body::after {
 /* ── 名言ナビ矢印 ── */
 .edge-nav {
   position: absolute;
-  top: 45%;
+  top: 50%;
+  transform: translateY(-50%);
   width: 6cqw; height: 6cqw;
   max-width: 24px; max-height: 24px;
   display: flex; align-items: center; justify-content: center;
@@ -1043,7 +1044,7 @@ let currentIdx = dayIdx() % QUOTES.length;
 function applyQText(te, text) {
   te.textContent = text;
   te.style.fontSize = '';
-  requestAnimationFrame(() => { fitQText(te); positionEdgeNav(); });
+  requestAnimationFrame(() => fitQText(te));
 }
 
 // 本文がアイコン行に被りそうな場合だけ、被らなくなるまで文字サイズを少しずつ縮小する
@@ -1059,22 +1060,6 @@ function fitQText(te) {
     size -= 1;
     te.style.fontSize = size + 'px';
   }
-}
-
-// 名言の文字数によって縦に伸びるテキストとナビ矢印が被らないよう、矢印を本文と
-// アイコン行の間の空きスペースの中央に再配置する
-function positionEdgeNav() {
-  const card = document.querySelector('.glass-card');
-  const te = document.getElementById('q-text');
-  const favBtn = document.getElementById('fav-btn');
-  if (!card || !te || !favBtn) return;
-  const cardRect = card.getBoundingClientRect();
-  const teRect = te.getBoundingClientRect();
-  const iconRect = favBtn.getBoundingClientRect();
-  const midY = (teRect.bottom + iconRect.top) / 2;
-  let topPct = ((midY - cardRect.top) / cardRect.height) * 100;
-  topPct = Math.min(Math.max(topPct, 40), 78);
-  document.querySelectorAll('.edge-nav').forEach(el => { el.style.top = topPct + '%'; });
 }
 
 function showQuote(idx, direction) {
@@ -1153,7 +1138,6 @@ function getOrSetTodayIndex() {
 
   window.addEventListener('resize', () => requestAnimationFrame(() => {
     fitQText(document.getElementById('q-text'));
-    positionEdgeNav();
   }));
 })();
 </script>
