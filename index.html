@@ -565,24 +565,44 @@ body::after {
   position: fixed; left: -9999px; top: 0;
   width: 1080px;
   height: 1920px;
-  background: #08130a;
+  background: #060e07;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 120px 120px;
-  /* 森の背景 */
+  overflow: hidden;
+}
+#cf::before {
+  /* 竹林の背景 */
+  content: '';
+  position: absolute;
+  top: -5%; left: -5%; right: -5%; bottom: -5%;
   background-image:
-    radial-gradient(ellipse 30% 60% at 15% 0%,  rgba(120,180,60,0.13) 0%, transparent 70%),
-    radial-gradient(ellipse 20% 50% at 75% 0%,  rgba(100,160,40,0.10) 0%, transparent 65%),
-    radial-gradient(ellipse 15% 40% at 45% 5%,  rgba(140,200,70,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(4,10,5,0.9) 0%, transparent 80%),
-    linear-gradient(180deg, #0a1a0c 0%, #0d2010 40%, #0a1a0c 70%, #060e07 100%);
+    repeating-linear-gradient(90deg,
+      rgba(170,200,120,0.45) 0px, rgba(170,200,120,0.45) 26px,
+      rgba(80,110,60,0.30) 26px, rgba(80,110,60,0.30) 58px,
+      rgba(15,30,15,0.55) 58px, rgba(15,30,15,0.55) 92px,
+      rgba(130,165,90,0.40) 92px, rgba(130,165,90,0.40) 120px,
+      rgba(25,40,20,0.60) 120px, rgba(25,40,20,0.60) 168px
+    ),
+    linear-gradient(180deg, rgba(60,100,55,0.6) 0%, rgba(15,35,16,0.8) 55%, rgba(4,10,5,0.95) 100%);
+  filter: blur(16px) brightness(0.75);
+}
+#cf::after {
+  /* 中央への暗いビネット（文字の視認性確保） */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(4,10,5,0.45) 0%, rgba(4,10,5,0.78) 75%, rgba(2,6,3,0.92) 100%);
 }
 .cf-inner {
   width: 100%;
   max-width: 840px;
+  position: relative;
+  z-index: 1;
 }
 .cf-name { font-size: 1.1rem; letter-spacing: 0.62em; color: rgba(140,195,100,0.5); margin-bottom: 60px; font-family: 'Shippori Mincho B1', serif; }
 .cf-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(100,180,50,0.4), transparent); margin-bottom: 120px; }
@@ -609,7 +629,7 @@ body::after {
 }
 .modal-hint {
   color: rgba(160,210,130,0.7);
-  font-family: 'Shippori Mincho B1', serif;
+  font-family: 'Hiragino Kaku Gothic Std', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.3em;
   text-align: center;
@@ -626,7 +646,7 @@ body::after {
   border: 1px solid rgba(140,190,100,0.3);
   background: none;
   color: rgba(160,210,130,0.7);
-  font-family: 'Shippori Mincho B1', serif;
+  font-family: 'Hiragino Kaku Gothic Std', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.3em;
   cursor: pointer;
