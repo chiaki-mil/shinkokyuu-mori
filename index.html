@@ -182,16 +182,6 @@ body::after {
 }
 #q-text.show { opacity: 1; transform: none; }
 
-/* 文字数が多い名言は文字サイズ・行間を縮小して収まりを調整 */
-#q-text.q-text-long {
-  font-size: clamp(0.88rem, 4.4cqw, 1.4rem);
-  line-height: 1.7;
-}
-#q-text.q-text-xlong {
-  font-size: clamp(0.78rem, 3.7cqw, 1.2rem);
-  line-height: 1.55;
-}
-
 /* 著者 */
 #q-author {
   margin-top: 12px;
@@ -1052,10 +1042,23 @@ let currentIdx = dayIdx() % QUOTES.length;
 
 function applyQText(te, text) {
   te.textContent = text;
-  te.classList.remove('q-text-long', 'q-text-xlong');
-  if (text.length > 80) te.classList.add('q-text-xlong');
-  else if (text.length > 50) te.classList.add('q-text-long');
-  requestAnimationFrame(positionEdgeNav);
+  te.style.fontSize = '';
+  requestAnimationFrame(() => { fitQText(te); positionEdgeNav(); });
+}
+
+// 本文がアイコン行に被りそうな場合だけ、被らなくなるまで文字サイズを少しずつ縮小する
+function fitQText(te) {
+  const favBtn = document.getElementById('fav-btn');
+  if (!te || !favBtn) return;
+  te.style.fontSize = '';
+  const baseSize = parseFloat(getComputedStyle(te).fontSize);
+  const minSize = baseSize * 0.6;
+  const iconTop = favBtn.getBoundingClientRect().top;
+  let size = baseSize;
+  while (te.getBoundingClientRect().bottom > iconTop - 8 && size > minSize) {
+    size -= 1;
+    te.style.fontSize = size + 'px';
+  }
 }
 
 // 名言の文字数によって縦に伸びるテキストとナビ矢印が被らないよう、矢印を本文と
@@ -1148,7 +1151,10 @@ function getOrSetTodayIndex() {
   loadingScreen.classList.add('hidden');
   setTimeout(() => loadingScreen.style.display = 'none', 800);
 
-  window.addEventListener('resize', () => requestAnimationFrame(positionEdgeNav));
+  window.addEventListener('resize', () => requestAnimationFrame(() => {
+    fitQText(document.getElementById('q-text'));
+    positionEdgeNav();
+  }));
 })();
 </script>
 </body>
