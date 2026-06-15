@@ -879,8 +879,8 @@ function syncBadge() {
 function toggleFav() {
   const q=todayQ(); let favs=getFavs();
   const i=favs.findIndex(f=>f.text===q.text);
-  if(i>=0){ favs.splice(i,1); pop('お気に入りから削除しました'); }
-  else { favs.unshift({...q,date:dateKey()}); pop('お気に入りに追加しました'); }
+  if(i>=0){ favs.splice(i,1); }
+  else { favs.unshift({...q,date:dateKey()}); }
   setFavs(favs); syncFavBtn(); syncBadge();
 }
 
@@ -951,7 +951,6 @@ async function saveFavItem(i) {
   if (f) await saveImgFromText(f.text);
 }
 async function saveImgFromText(text) {
-  pop('画像を生成しています...');
   document.getElementById('cf-body').textContent=text;
   try {
     const canvas=await html2canvas(document.getElementById('cf'),{
