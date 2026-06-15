@@ -309,7 +309,7 @@ body::after {
 
 /* ── お気に入りが空の場合（Figmaデザイン） ── */
 .glass-card.fav-empty-mode {
-  background: rgba(255,255,255,0.7);
+  background: linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(238,243,236,0.88) 100%);
   backdrop-filter: blur(27px);
   border-color: rgba(255,255,255,0.5);
 }
@@ -326,10 +326,10 @@ body::after {
   top: 11.25%; left: 18.2%;
   align-items: center;
   gap: 2.5cqw;
-  color: #5a715b;
+  color: #7c8c7c;
 }
 #fav-sec.is-empty .fav-head { display: flex; }
-.fav-head svg { width: clamp(1rem,4cqw,1.3rem); height: clamp(1rem,4cqw,1.3rem); }
+.fav-head svg { width: clamp(1rem,4cqw,1.3rem); height: clamp(1rem,4cqw,1.3rem); fill: currentColor; }
 .fav-head-title {
   font-size: clamp(0.85rem,4.28cqw,1.3rem);
   letter-spacing: 0.2em;
@@ -343,7 +343,7 @@ body::after {
   max-width: 44px; max-height: 44px;
   align-items: center; justify-content: center;
   background: none; border: none;
-  color: #13372f;
+  color: #8a948c;
   cursor: pointer;
   z-index: 3;
 }
@@ -366,7 +366,7 @@ body::after {
   line-height: 2.6;
   letter-spacing: 0.03em;
   white-space: nowrap;
-  color: #13372f;
+  color: #4a5650;
   margin-bottom: 8%;
 }
 .fav-back-btn {
@@ -375,16 +375,16 @@ body::after {
   gap: 2.5cqw;
   width: 77.5%;
   padding: 4% 0;
-  border: 1px solid #13372f;
+  border: 1px solid rgba(74,86,80,0.35);
   background: none;
-  color: #13372f;
+  color: #4a5650;
   font-family: 'Shippori Mincho B1', serif;
   font-size: clamp(0.75rem,3.64cqw,1.1rem);
   letter-spacing: 0.2em;
   cursor: pointer;
   transition: background 0.25s;
 }
-.fav-back-btn:hover { background: rgba(19,55,47,0.08); }
+.fav-back-btn:hover { background: rgba(74,86,80,0.08); }
 .fav-back-btn svg { width: clamp(0.9rem,4.5cqw,1.4rem); height: clamp(0.9rem,4.5cqw,1.4rem); }
 
 .fav-footer {
@@ -675,13 +675,13 @@ body::after {
   <!-- Favorites -->
   <section id="fav-sec">
     <div class="fav-head">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
       </svg>
       <span class="fav-head-title">お気に入りの言葉</span>
     </div>
     <button class="fav-close" onclick="goQuote()" aria-label="閉じる">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
