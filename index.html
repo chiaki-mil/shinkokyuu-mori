@@ -266,6 +266,10 @@ body::after {
   padding-right: 2%;
 }
 #fav-sec.is-empty .fav-list { display: none; }
+.fav-list::-webkit-scrollbar { width: 6px; }
+.fav-list::-webkit-scrollbar-track { background: transparent; }
+.fav-list::-webkit-scrollbar-thumb { background: #3B4D46; border-radius: 3px; }
+.fav-list { scrollbar-color: #3B4D46 transparent; }
 
 .fav-item {
   background: rgba(255,255,255,0.55);
