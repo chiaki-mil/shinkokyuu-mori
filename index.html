@@ -2,22 +2,22 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-  <meta property="og:title" content="深呼吸をする森">
+  <meta property="og:title" content="深呼吸する森">
   <meta property="og:description" content="深呼吸する言葉は、橘川幸夫が自分の人生の局面で、考えたり感じたりしたことを、短い文章に結晶化したものです。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://chiaki-mil.github.io/shinkokyuu-mori/">
   <meta property="og:image" content="https://chiaki-mil.github.io/shinkokyuu-mori/apple-touch-icon.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="深呼吸をする森">
+  <meta name="twitter:title" content="深呼吸する森">
   <meta name="twitter:description" content="深呼吸する言葉は、橘川幸夫が自分の人生の局面で、考えたり感じたりしたことを、短い文章に結晶化したものです。">
   <meta name="twitter:image" content="https://chiaki-mil.github.io/shinkokyuu-mori/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深呼吸をする森</title>
+<title>深呼吸する森</title>
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="深呼吸をする森">
+  <meta name="apple-mobile-web-app-title" content="深呼吸する森">
   <meta name="theme-color" content="#08130a">
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -754,7 +754,7 @@ body::after {
 <!-- Off-screen capture -->
 <div id="cf">
   <div class="cf-inner">
-    <div class="cf-name">深 呼 吸 を す る 森</div>
+    <div class="cf-name">深 呼 吸 す る 森</div>
     <div class="cf-rule"></div>
     <div class="cf-body" id="cf-body"></div>
   
@@ -910,7 +910,7 @@ async function shareFavItem(i) {
 }
 async function shareText(text) {
   if (navigator.share) {
-    try { await navigator.share({ title: '深呼吸をする森', text }); }
+    try { await navigator.share({ title: '深呼吸する森', text }); }
     catch(e) { if (e.name !== 'AbortError') copyFallback(text); }
   } else {
     copyFallback(text);
