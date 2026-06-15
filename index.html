@@ -129,33 +129,45 @@ body::after {
   display: none;
   position: absolute;
   top: 13%; right: 8%;
-  min-width: 44%;
+  min-width: 50%;
   list-style: none;
-  background: linear-gradient(160deg, rgba(40,60,40,0.85) 0%, rgba(10,25,12,0.92) 100%);
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 3cqw;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.35);
-  padding: 2% 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
   z-index: 5;
-  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
-.menu-dropdown.open { display: block; }
-.menu-dropdown-item {
+.menu-dropdown.open {
   display: block;
+  opacity: 1;
+  transform: none;
+}
+.menu-dropdown li + li { border-top: 1px solid rgba(255,255,255,0.15); }
+.menu-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 3.5cqw;
   width: 100%;
   background: none;
   border: none;
   text-align: left;
-  padding: 3% 6%;
+  padding: 3.2% 1.5%;
   font-family: inherit;
   font-size: clamp(0.78rem, 3.4cqw, 1rem);
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.85);
   cursor: pointer;
-  transition: background 0.2s;
+  transition: color 0.2s;
 }
-.menu-dropdown-item:hover { background: rgba(255,255,255,0.08); }
+.menu-dropdown-item:hover { color: #fff; }
+.menu-dropdown-item svg {
+  width: clamp(0.95rem, 4.2cqw, 1.2rem);
+  height: clamp(0.95rem, 4.2cqw, 1.2rem);
+  flex-shrink: 0;
+}
 
 /* ── 名言ナビ矢印 ── */
 .edge-nav {
@@ -717,7 +729,12 @@ body::after {
   </button>
 
   <ul class="menu-dropdown" id="menu-dropdown">
-    <li><button class="menu-dropdown-item" id="fav-tab" onclick="goFavsFromMenu()">お気に入りの言葉</button></li>
+    <li>
+      <button class="menu-dropdown-item" id="fav-tab" onclick="goFavsFromMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        お気に入りの言葉
+      </button>
+    </li>
   </ul>
 
   <!-- 名言ナビ矢印 -->
