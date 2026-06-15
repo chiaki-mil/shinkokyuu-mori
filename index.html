@@ -307,6 +307,103 @@ body::after {
 
 .back-row { text-align: center; margin-top: 44px; }
 
+/* ── お気に入りが空の場合（Figmaデザイン） ── */
+.glass-card.fav-empty-mode {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(27px);
+  border-color: rgba(255,255,255,0.5);
+}
+
+#fav-sec.is-empty .fav-sec-title,
+#fav-sec.is-empty .fav-list,
+#fav-sec.is-empty .back-row {
+  display: none;
+}
+
+.fav-head {
+  display: none;
+  position: absolute;
+  top: 11.25%; left: 18.2%;
+  align-items: center;
+  gap: 2.5cqw;
+  color: #5a715b;
+}
+#fav-sec.is-empty .fav-head { display: flex; }
+.fav-head svg { width: clamp(1rem,4cqw,1.3rem); height: clamp(1rem,4cqw,1.3rem); }
+.fav-head-title {
+  font-size: clamp(0.85rem,4.28cqw,1.3rem);
+  letter-spacing: 0.2em;
+}
+
+.fav-close {
+  display: none;
+  position: absolute;
+  top: 2.55%; right: 8.5%;
+  width: 11.76cqw; height: 11.76cqw;
+  max-width: 44px; max-height: 44px;
+  align-items: center; justify-content: center;
+  background: none; border: none;
+  color: #13372f;
+  cursor: pointer;
+  z-index: 3;
+}
+#fav-sec.is-empty .fav-close { display: flex; }
+.fav-close svg { width: 100%; height: 100%; }
+
+.fav-empty-state {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 8%;
+}
+#fav-sec.is-empty .fav-empty-state { display: flex; }
+.fav-empty-msg {
+  font-size: clamp(0.78rem,3.5cqw,1.1rem);
+  line-height: 2.6;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  color: #13372f;
+  margin-bottom: 8%;
+}
+.fav-back-btn {
+  display: flex;
+  align-items: center; justify-content: center;
+  gap: 2.5cqw;
+  width: 77.5%;
+  padding: 4% 0;
+  border: 1px solid #13372f;
+  background: none;
+  color: #13372f;
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(0.75rem,3.64cqw,1.1rem);
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.fav-back-btn:hover { background: rgba(19,55,47,0.08); }
+.fav-back-btn svg { width: clamp(0.9rem,4.5cqw,1.4rem); height: clamp(0.9rem,4.5cqw,1.4rem); }
+
+.fav-footer {
+  display: none;
+  position: absolute;
+  bottom: 4.5%; left: 0; right: 0;
+  text-align: center;
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(0.7rem,3.42cqw,1rem);
+  letter-spacing: 0.2em;
+  color: #202320;
+}
+#fav-sec.is-empty .fav-footer { display: block; }
+
+.glass-card.fav-empty-mode .menu-btn,
+.glass-card.fav-empty-mode .edge-nav {
+  display: none;
+}
+
 /* ── 解説モーダル ── */
 #desc-modal {
   display: none;
@@ -577,11 +674,32 @@ body::after {
 
   <!-- Favorites -->
   <section id="fav-sec">
+    <div class="fav-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      <span class="fav-head-title">お気に入りの言葉</span>
+    </div>
+    <button class="fav-close" onclick="goQuote()" aria-label="閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
     <p class="fav-sec-title">お 気 に 入 り の 言 葉</p>
     <div class="fav-list" id="fav-list"></div>
     <div class="back-row">
       <button class="save-link" onclick="goQuote()">← 今 日 の 言 葉 に 戻 る</button>
     </div>
+
+    <div class="fav-empty-state">
+      <p class="fav-empty-msg">まだお気に入りはありません。<br>今日の言葉から保存してみましょう。</p>
+      <button class="fav-back-btn" onclick="goQuote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        今日の言葉に戻る
+      </button>
+    </div>
+    <p class="fav-footer">深 呼 吸 す る 森 ©️ 橘 川 幸 夫</p>
   </section>
 
 </div>
@@ -803,6 +921,7 @@ function goQuote() {
   document.getElementById('fav-sec').style.display='none';
   document.getElementById('quote-sec').style.display='';
   document.getElementById('fav-tab').classList.remove('active');
+  document.querySelector('.glass-card').classList.remove('fav-empty-mode');
 }
 function toggleFavSection() {
   const isShowing = document.getElementById('fav-sec').style.display === 'flex';
@@ -811,9 +930,14 @@ function toggleFavSection() {
 
 function renderFavs() {
   const list=document.getElementById('fav-list');
+  const sec=document.getElementById('fav-sec');
+  const card=document.querySelector('.glass-card');
   const favs=getFavs();
-  if(!favs.length){
-    list.innerHTML='<div class="fav-empty">まだお気に入りはありません。<br>今日の名言から保存してみましょう。</div>';
+  const empty=!favs.length;
+  sec.classList.toggle('is-empty', empty);
+  card.classList.toggle('fav-empty-mode', empty);
+  if(empty){
+    list.innerHTML='';
     return;
   }
   list.innerHTML=favs.map((f,i)=>`
