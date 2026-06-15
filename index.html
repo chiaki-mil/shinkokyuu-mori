@@ -1055,6 +1055,23 @@ function applyQText(te, text) {
   te.classList.remove('q-text-long', 'q-text-xlong');
   if (text.length > 80) te.classList.add('q-text-xlong');
   else if (text.length > 50) te.classList.add('q-text-long');
+  requestAnimationFrame(positionEdgeNav);
+}
+
+// 名言の文字数によって縦に伸びるテキストとナビ矢印が被らないよう、矢印を本文と
+// アイコン行の間の空きスペースの中央に再配置する
+function positionEdgeNav() {
+  const card = document.querySelector('.glass-card');
+  const te = document.getElementById('q-text');
+  const favBtn = document.getElementById('fav-btn');
+  if (!card || !te || !favBtn) return;
+  const cardRect = card.getBoundingClientRect();
+  const teRect = te.getBoundingClientRect();
+  const iconRect = favBtn.getBoundingClientRect();
+  const midY = (teRect.bottom + iconRect.top) / 2;
+  let topPct = ((midY - cardRect.top) / cardRect.height) * 100;
+  topPct = Math.min(Math.max(topPct, 40), 78);
+  document.querySelectorAll('.edge-nav').forEach(el => { el.style.top = topPct + '%'; });
 }
 
 function showQuote(idx, direction) {
@@ -1130,6 +1147,8 @@ function getOrSetTodayIndex() {
   const loadingScreen = document.getElementById('loading-screen');
   loadingScreen.classList.add('hidden');
   setTimeout(() => loadingScreen.style.display = 'none', 800);
+
+  window.addEventListener('resize', () => requestAnimationFrame(positionEdgeNav));
 })();
 </script>
 </body>
