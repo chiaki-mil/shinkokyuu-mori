@@ -85,8 +85,11 @@ body::after {
   position: relative; z-index: 1;
   height: 100dvh;
   display: flex;
-  padding: 4.51dvh 6.71vw;
+  padding: 4.51dvh 6.71cqw;
   color: #d6eacc;
+  container-type: inline-size;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 /* ── ガラスカード（Figmaデザインに準拠した絶対配置レイアウト） ── */
@@ -96,7 +99,7 @@ body::after {
   height: 100%;
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 5.28vw;
+  border-radius: 5.28cqw;
   backdrop-filter: blur(20px);
   box-shadow: 0 20px 60px rgba(0,0,0,0.25);
 }
@@ -105,7 +108,7 @@ body::after {
 .menu-btn {
   position: absolute;
   top: 2.83%; right: 16.95%;
-  width: 9.17vw; height: 9.17vw;
+  width: 9.17cqw; height: 9.17cqw;
   max-width: 36px; max-height: 36px;
   display: flex;
   align-items: center;
@@ -128,12 +131,31 @@ body::after {
   color: #a8e060;
 }
 
+/* ── 名言ナビ矢印 ── */
+.edge-nav {
+  position: absolute;
+  top: 45%;
+  width: 6cqw; height: 6cqw;
+  max-width: 24px; max-height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  transition: color 0.25s;
+  z-index: 2;
+}
+.edge-nav:hover { color: #fff; }
+.edge-nav svg { width: 100%; height: 100%; }
+.edge-nav--prev { left: 5%; }
+.edge-nav--next { right: 4%; }
+
 /* ── Quote section ── */
 .date-str {
   position: absolute;
   top: 23.2%; left: 0; right: 0;
   text-align: center;
-  font-size: clamp(0.8rem, 2.96vw, 1.05rem);
+  font-size: clamp(0.8rem, 2.96cqw, 1.05rem);
   letter-spacing: 0.4em;
   color: rgba(255,255,255,0.5);
 }
@@ -145,7 +167,7 @@ body::after {
 
 /* 名言テキスト — くっきり・大きく */
 #q-text {
-  font-size: clamp(1.05rem, 5.37vw, 1.7rem);
+  font-size: clamp(1.05rem, 5.37cqw, 1.7rem);
   font-weight: 500;
   line-height: 1.965;
   letter-spacing: 0.06em;
@@ -181,7 +203,7 @@ body::after {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.35);
   color: rgba(255,255,255,0.9);
-  font-size: clamp(1rem, 4.5vw, 1.4rem);
+  font-size: clamp(1rem, 4.5cqw, 1.4rem);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: all 0.3s;
@@ -205,7 +227,7 @@ body::after {
   position: absolute;
   top: 91.5%; left: 0; right: 0;
   text-align: center;
-  font-size: clamp(0.8rem, 2.96vw, 1.05rem);
+  font-size: clamp(0.8rem, 2.96cqw, 1.05rem);
   letter-spacing: 0.2em;
   color: rgba(255,255,255,0.6);
 }
@@ -504,11 +526,19 @@ body::after {
 
 <div id="app">
 
-<div class="glass-card" id="glass-card">
+<div class="glass-card">
 
   <button class="menu-btn" id="fav-tab" onclick="toggleFavSection()" aria-label="お気に入り">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     <span class="menu-badge" id="badge"></span>
+  </button>
+
+  <!-- 名言ナビ矢印 -->
+  <button class="edge-nav edge-nav--prev" onclick="showPrevQuote()" aria-label="前の言葉">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="edge-nav edge-nav--next" onclick="showRandomQuote()" aria-label="次の言葉">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
   </button>
 
   <!-- Quote -->
@@ -868,23 +898,6 @@ function getOrSetTodayIndex() {
   const loadingScreen = document.getElementById('loading-screen');
   loadingScreen.classList.add('hidden');
   setTimeout(() => loadingScreen.style.display = 'none', 800);
-})();
-
-/* ── スワイプで名言ナビゲーション ── */
-(function(){
-  const card = document.getElementById('glass-card');
-  let startX = 0, startY = 0;
-  card.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  }, { passive: true });
-  card.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - startX;
-    const dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-      if (dx < 0) showRandomQuote(); else showPrevQuote();
-    }
-  }, { passive: true });
 })();
 </script>
 </body>
