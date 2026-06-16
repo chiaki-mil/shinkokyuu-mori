@@ -119,53 +119,59 @@ body::after {
   cursor: pointer;
   padding: 0;
   transition: color 0.3s;
-  z-index: 2;
+  z-index: 6;
 }
 .menu-btn svg { width: 100%; height: 100%; }
 .menu-btn:hover, .menu-btn.active { color: #fff; }
 
-/* ── メニュードロップダウン ── */
-.menu-dropdown {
-  display: none;
+/* ── フルパネルスライドメニュー ── */
+.menu-nav {
   position: absolute;
-  top: 13%; right: 8%;
-  min-width: 50%;
-  list-style: none;
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0;
+  inset: 0;
   z-index: 5;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
-.menu-dropdown.open {
-  display: block;
-  opacity: 1;
-  transform: none;
-}
-.menu-dropdown li + li { border-top: 1px solid rgba(255,255,255,0.15); }
-.menu-dropdown-item {
+  background: rgba(6, 14, 7, 0.95);
+  backdrop-filter: blur(18px);
+  border-radius: inherit;
   display: flex;
   align-items: center;
+  justify-content: center;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.menu-nav.open {
+  clip-path: inset(0 0 0% 0);
+  pointer-events: auto;
+}
+.menu-nav-list {
+  list-style: none;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.menu-nav-item + .menu-nav-item {
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.menu-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 3.5cqw;
   width: 100%;
   background: none;
   border: none;
-  text-align: left;
-  padding: 3.2% 1.5%;
+  padding: 5% 0;
   font-family: inherit;
-  font-size: clamp(0.78rem, 3.4cqw, 1rem);
-  letter-spacing: 0.1em;
+  font-size: clamp(0.9rem, 4cqw, 1.2rem);
+  letter-spacing: 0.15em;
   color: rgba(255,255,255,0.85);
   cursor: pointer;
   transition: color 0.2s;
 }
-.menu-dropdown-item:hover { color: #fff; }
-.menu-dropdown-item svg {
-  width: clamp(0.95rem, 4.2cqw, 1.2rem);
-  height: clamp(0.95rem, 4.2cqw, 1.2rem);
+.menu-nav-btn:hover { color: #fff; }
+.menu-nav-btn svg {
+  width: clamp(1rem, 4.5cqw, 1.3rem);
+  height: clamp(1rem, 4.5cqw, 1.3rem);
   flex-shrink: 0;
 }
 
@@ -429,7 +435,7 @@ body::after {
 }
 
 .glass-card.fav-mode .menu-btn,
-.glass-card.fav-mode .menu-dropdown,
+.glass-card.fav-mode .menu-nav,
 .glass-card.fav-mode .edge-nav {
   display: none;
 }
@@ -725,17 +731,20 @@ body::after {
 <div class="glass-card">
 
   <button class="menu-btn" id="menu-btn" onclick="toggleMenu()" aria-label="メニュー" aria-haspopup="true" aria-expanded="false">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg class="icon-hamburger" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
 
-  <ul class="menu-dropdown" id="menu-dropdown">
-    <li>
-      <button class="menu-dropdown-item" id="fav-tab" onclick="goFavsFromMenu()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        お気に入りの言葉
-      </button>
-    </li>
-  </ul>
+  <nav class="menu-nav" id="menu-nav">
+    <ul class="menu-nav-list">
+      <li class="menu-nav-item">
+        <button class="menu-nav-btn" id="fav-tab" onclick="goFavsFromMenu()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          お気に入りの言葉
+        </button>
+      </li>
+    </ul>
+  </nav>
 
   <!-- 名言ナビ矢印 -->
   <button class="edge-nav edge-nav--prev" onclick="showPrevQuote()" aria-label="前の言葉">
@@ -1021,25 +1030,25 @@ function closeImgModal(){
 }
 
 function toggleMenu() {
-  const dd = document.getElementById('menu-dropdown');
-  const open = dd.classList.toggle('open');
-  document.getElementById('menu-btn').setAttribute('aria-expanded', open ? 'true' : 'false');
+  const nav = document.getElementById('menu-nav');
+  const btn = document.getElementById('menu-btn');
+  const open = nav.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.querySelector('.icon-hamburger').style.display = open ? 'none' : '';
+  btn.querySelector('.icon-close').style.display = open ? '' : 'none';
 }
 function closeMenu() {
-  document.getElementById('menu-dropdown').classList.remove('open');
-  document.getElementById('menu-btn').setAttribute('aria-expanded', 'false');
+  const nav = document.getElementById('menu-nav');
+  const btn = document.getElementById('menu-btn');
+  nav.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.querySelector('.icon-hamburger').style.display = '';
+  btn.querySelector('.icon-close').style.display = 'none';
 }
 function goFavsFromMenu() {
   closeMenu();
   goFavs();
 }
-document.addEventListener('click', (e) => {
-  const dd = document.getElementById('menu-dropdown');
-  const btn = document.getElementById('menu-btn');
-  if (dd.classList.contains('open') && !dd.contains(e.target) && !btn.contains(e.target)) {
-    closeMenu();
-  }
-});
 
 function goFavs() {
   document.getElementById('quote-sec').style.display='none';
