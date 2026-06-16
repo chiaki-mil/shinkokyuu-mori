@@ -2,22 +2,22 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-  <meta property="og:title" content="深呼吸をする森">
+  <meta property="og:title" content="深呼吸する森">
   <meta property="og:description" content="深呼吸する言葉は、橘川幸夫が自分の人生の局面で、考えたり感じたりしたことを、短い文章に結晶化したものです。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://chiaki-mil.github.io/shinkokyuu-mori/">
   <meta property="og:image" content="https://chiaki-mil.github.io/shinkokyuu-mori/apple-touch-icon.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="深呼吸をする森">
+  <meta name="twitter:title" content="深呼吸する森">
   <meta name="twitter:description" content="深呼吸する言葉は、橘川幸夫が自分の人生の局面で、考えたり感じたりしたことを、短い文章に結晶化したものです。">
   <meta name="twitter:image" content="https://chiaki-mil.github.io/shinkokyuu-mori/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深呼吸をする森</title>
+<title>深呼吸する森</title>
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="深呼吸をする森">
+  <meta name="apple-mobile-web-app-title" content="深呼吸する森">
   <meta name="theme-color" content="#08130a">
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -83,92 +83,142 @@ body::after {
 
 #app {
   position: relative; z-index: 1;
-  min-height: 100dvh;
+  height: 100dvh;
+  display: flex;
+  padding: 4.51dvh 6.71cqw;
+  color: #d6eacc;
+  container-type: inline-size;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── ガラスカード（Figmaデザインに準拠した絶対配置レイアウト） ── */
+.glass-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 5.28cqw;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+/* ── メニューボタン ── */
+.menu-btn {
+  position: absolute;
+  top: 2.83%; right: 8%;
+  width: 9.17cqw; height: 9.17cqw;
+  max-width: 36px; max-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.9);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s;
+  z-index: 6;
+}
+.menu-btn svg { width: 100%; height: 100%; }
+.menu-btn:hover, .menu-btn.active { color: #fff; }
+
+/* ── フルパネルスライドメニュー ── */
+.menu-nav {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: rgba(6, 14, 7, 0.95);
+  backdrop-filter: blur(18px);
+  border-radius: inherit;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 18%;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.menu-nav.open {
+  clip-path: inset(0 0 0% 0);
+  pointer-events: auto;
+}
+.menu-nav-list {
+  list-style: none;
+  width: 80%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  color: #d6eacc;
 }
-
-/* ── Header ── */
-header {
+.menu-nav-item + .menu-nav-item {
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.menu-nav-btn {
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  padding: 18px 24px 0;
-}
-
-.site-name {
-  font-size: 0.85rem;
-  letter-spacing: 0.62em;
-  color: rgba(160,210,130,0.6);
-  font-weight: 400;
-}
-
-.tab-btn {
+  gap: 3.5cqw;
+  width: 100%;
   background: none;
-  border: 1px solid rgba(140,190,100,0.25);
-  color: rgba(160,210,130,0.55);
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 0.64rem;
-  letter-spacing: 0.32em;
-  padding: 7px 16px;
+  border: none;
+  padding: 5% 0;
+  font-family: inherit;
+  font-size: clamp(0.9rem, 4cqw, 1.2rem);
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.85);
   cursor: pointer;
-  transition: all 0.35s;
+  transition: color 0.2s;
 }
-.tab-btn:hover, .tab-btn.active {
-  color: #d6eacc;
-  border-color: rgba(160,210,130,0.5);
-  background: rgba(80,140,50,0.12);
+.menu-nav-btn:hover { color: #fff; }
+.menu-nav-btn svg {
+  width: clamp(1rem, 4.5cqw, 1.3rem);
+  height: clamp(1rem, 4.5cqw, 1.3rem);
+  flex-shrink: 0;
 }
-.badge { font-size: 0.58rem; margin-left: 4px; }
 
-/* ── 枝のセパレーター ── */
-.hr-branch {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  margin: 14px 24px 0;
-  opacity: 0.45;
+/* ── 名言ナビ矢印 ── */
+.edge-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6cqw; height: 6cqw;
+  max-width: 24px; max-height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  transition: color 0.25s;
+  z-index: 2;
 }
-.hr-branch::before,
-.hr-branch::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #b8973a 30%, #b8973a 70%, transparent);
-  box-shadow: 0 0 6px rgba(184,151,58,0.4);
-}
+.edge-nav:hover { color: #fff; }
+.edge-nav svg { width: 100%; height: 100%; }
+.edge-nav--prev { left: 5%; }
+.edge-nav--next { right: 4%; }
 
 /* ── Quote section ── */
-#quote-sec {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: unset;
-  padding: 16px 24px 0;
-  text-align: center;
-  position: relative;
-}
-
 .date-str {
-  font-size: 0.74rem;
-  letter-spacing: 0.52em;
-  color: rgba(160,210,120,0.55);
-  margin-bottom: 24px;
+  position: absolute;
+  top: 23.2%; left: 0; right: 0;
+  text-align: center;
+  font-size: clamp(0.8rem, 2.96cqw, 1.05rem);
+  letter-spacing: 0.4em;
+  color: rgba(255,255,255,0.5);
 }
 
-#q-card { width: 100%; max-width: 500px; }
+#q-card {
+  position: absolute;
+  top: 33.2%; left: 15.7%; right: 12.5%;
+}
 
 /* 名言テキスト — くっきり・大きく */
 #q-text {
-  font-size: clamp(1.0rem, 3.8vw, 1.4rem);
-  font-weight: 400;
-  line-height: 2.4;
-  letter-spacing: 0.1em;
-  color: #e8f5e0;
+  font-size: clamp(1.05rem, 5.37cqw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.965;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  text-align: left;
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;
@@ -189,42 +239,45 @@ header {
 }
 #q-author.show { opacity: 1; }
 
-/* ── Controls ── */
-#controls {
-  padding: 0 24px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn-row { display: flex; gap: 12px; }
-
-.ctrl {
-  background: rgba(20,50,18,0.5);
-  border: 1px solid rgba(100,170,60,0.28);
-  color: rgba(160,210,120,0.7);
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  padding: 14px 28px;
+/* ── Controls（お気に入り／共有／保存） ── */
+.icon-circle {
+  position: absolute;
+  top: 80%;
+  width: 14.54%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.9);
+  font-size: clamp(1rem, 4.5cqw, 1.4rem);
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: all 0.3s;
-  line-height: 1.6;
-  text-align: center;
-  min-width: 112px;
-  backdrop-filter: blur(4px);
 }
-.ctrl:hover {
-  color: #d6eacc;
-  border-color: rgba(160,210,130,0.5);
-  background: rgba(80,140,50,0.12);
+.icon-circle:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.16);
 }
-.icon-btn { min-width: 52px; padding: 12px 16px; font-size: 1.1rem; line-height: 1; letter-spacing: 0; }
-.ctrl.fav-on {
+.icon-circle svg { width: 1.6em; height: 1.6em; }
+.icon-circle.fav-on {
   color: #a8e060;
-  border-color: rgba(140,210,70,0.5);
-  background: rgba(50,100,25,0.45);
+  border-color: rgba(168,224,96,0.6);
+  background: rgba(80,140,50,0.18);
+}
+.icon-circle.fav-on svg { fill: currentColor; }
+#fav-btn { left: 17.06%; }
+#share-btn { left: 42.78%; }
+#save-btn { left: 68.5%; }
+
+/* ── カードフッター ── */
+.card-footer {
+  position: absolute;
+  top: 91.5%; left: 0; right: 0;
+  text-align: center;
+  font-size: clamp(0.8rem, 2.96cqw, 1.05rem);
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
 }
 
 .save-link {
@@ -242,105 +295,150 @@ header {
 /* ── Favorites ── */
 #fav-sec {
   display: none;
-  padding: 24px 36px 60px;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
   animation: fadeUp 0.45s ease;
-  min-height: 100dvh;
-  align-items: flex-start;
 }
 @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 
-.fav-sec-title {
-  text-align: center;
-  font-size: 0.63rem;
-  letter-spacing: 0.6em;
-  color: rgba(140,195,100,0.55);
-  margin-bottom: 44px;
+.fav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4%;
+  position: absolute;
+  top: 19%; left: 8%; right: 8%; bottom: 9%;
+  overflow-y: auto;
+  padding-right: 2%;
 }
-
-.fav-list { max-width: 580px; margin: 0 auto; }
+#fav-sec.is-empty .fav-list { display: none; }
+.fav-list::-webkit-scrollbar { width: 6px; }
+.fav-list::-webkit-scrollbar-track { background: transparent; }
+.fav-list::-webkit-scrollbar-thumb { background: #3B4D46; border-radius: 3px; }
+.fav-list { scrollbar-color: #3B4D46 transparent; }
 
 .fav-item {
-  border-top: 1px solid rgba(80,140,50,0.2);
-  padding: 28px 0 24px;
-  position: relative;
-}
-.fav-item:last-child { border-bottom: 1px solid rgba(80,140,50,0.2); }
-
-.fav-text {
-  font-size: 0.96rem;
-  line-height: 2.4;
-  letter-spacing: 0.08em;
-  color: #d6eacc;
-  margin-bottom: 12px;
-  padding-right: 24px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-}
-.fav-by {
-  font-size: 0.63rem;
-  letter-spacing: 0.4em;
-  color: rgba(140,195,100,0.55);
-}
-.fav-del {
-  position: absolute; top: 28px; right: 0;
-  background: none; border: none;
-  color: rgba(140,195,100,0.3);
-  font-size: 0.72rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  padding: 2px 4px;
-}
-.fav-del:hover { color: #d6eacc; }
-
-.fav-empty {
-  text-align: center; padding: 80px 0;
-  font-size: 0.76rem; letter-spacing: 0.38em;
-  color: rgba(140,195,100,0.4); line-height: 2.8;
-}
-
-.back-row { text-align: center; margin-top: 44px; }
-
-.nav-fav-btn {
-  background: rgba(20,50,18,0.5);
-  border: 1px solid rgba(100,170,60,0.28);
-  color: rgba(160,210,120,0.7);
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 0.64rem;
-  letter-spacing: 0.35em;
-  padding: 9px 28px;
-  cursor: pointer;
-  transition: all 0.3s;
-  backdrop-filter: blur(4px);
-}
-.nav-fav-btn:hover, .nav-fav-btn.active {
-  color: #d6eacc;
-  border-color: rgba(130,200,80,0.55);
-  background: rgba(40,90,28,0.55);
-}
-.nav-badge { font-size: 0.58rem; margin-left: 4px; }
-
-/* ── 名言ナビ矢印 ── */
-.q-nav-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-}
-.q-nav-btn {
-  background: none;
-  border: 1px solid rgba(100,170,60,0.28);
-  color: rgba(160,210,120,0.65);
-  font-size: 1rem;
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  border-radius: 2px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 4.5cqw;
+  padding: 6% 7%;
   flex-shrink: 0;
 }
-.q-nav-btn:hover {
-  color: #d6eacc;
-  border-color: rgba(130,200,80,0.55);
-  background: rgba(40,90,28,0.4);
+
+.fav-text {
+  font-size: clamp(0.8rem, 3.6cqw, 1.05rem);
+  line-height: 1.9;
+  letter-spacing: 0.06em;
+  color: #3d4a3f;
+  margin-bottom: 6%;
+}
+
+.fav-item-icons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6%;
+  color: #4a5650;
+}
+.fav-icon-btn {
+  background: none; border: none;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.2s;
+}
+.fav-icon-btn:hover { opacity: 0.6; }
+.fav-icon-btn svg { width: clamp(1rem,4.2cqw,1.25rem); height: clamp(1rem,4.2cqw,1.25rem); }
+.fav-icon-heart { color: #4a5650; }
+
+/* ── お気に入りが空の場合（Figmaデザイン） ── */
+.glass-card.fav-mode {
+  background: linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(238,243,236,0.88) 100%);
+  backdrop-filter: blur(27px);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.fav-head {
+  display: flex;
+  position: absolute;
+  top: 11.25%; left: 18.2%;
+  align-items: center;
+  gap: 2.5cqw;
+  color: #7c8c7c;
+  z-index: 2;
+}
+.fav-head svg { width: clamp(1rem,4cqw,1.3rem); height: clamp(1rem,4cqw,1.3rem); fill: currentColor; }
+.fav-head-title {
+  font-size: clamp(0.85rem,4.28cqw,1.3rem);
+  letter-spacing: 0.2em;
+}
+
+.fav-close {
+  display: flex;
+  position: absolute;
+  top: 2.55%; right: 8.5%;
+  width: 11.76cqw; height: 11.76cqw;
+  max-width: 44px; max-height: 44px;
+  align-items: center; justify-content: center;
+  background: none; border: none;
+  color: #8a948c;
+  cursor: pointer;
+  z-index: 3;
+}
+.fav-close svg { width: 100%; height: 100%; }
+
+.fav-empty-state {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 8%;
+}
+#fav-sec.is-empty .fav-empty-state { display: flex; }
+.fav-empty-msg {
+  font-size: clamp(0.78rem,3.5cqw,1.1rem);
+  line-height: 2.6;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  color: #4a5650;
+  margin-bottom: 8%;
+}
+.fav-back-btn {
+  display: flex;
+  align-items: center; justify-content: center;
+  gap: 2.5cqw;
+  width: 77.5%;
+  padding: 4% 0;
+  border: 1px solid rgba(74,86,80,0.35);
+  background: none;
+  color: #4a5650;
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(0.75rem,3.64cqw,1.1rem);
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.fav-back-btn:hover { background: rgba(74,86,80,0.08); }
+.fav-back-btn svg { width: clamp(0.9rem,4.5cqw,1.4rem); height: clamp(0.9rem,4.5cqw,1.4rem); }
+
+.fav-footer {
+  display: block;
+  position: absolute;
+  bottom: 4.5%; left: 0; right: 0;
+  text-align: center;
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: clamp(0.7rem,3.42cqw,1rem);
+  letter-spacing: 0.2em;
+  color: #202320;
+}
+
+.glass-card.fav-mode .menu-btn,
+.glass-card.fav-mode .menu-nav,
+.glass-card.fav-mode .edge-nav {
+  display: none;
 }
 
 /* ── 解説モーダル ── */
@@ -514,43 +612,97 @@ header {
   position: fixed; left: -9999px; top: 0;
   width: 1080px;
   height: 1920px;
-  background: #08130a;
+  background: #060e07;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 120px 120px;
-  /* 森の背景 */
+  overflow: hidden;
+}
+#cf::before {
+  /* 竹林の背景 */
+  content: '';
+  position: absolute;
+  top: -5%; left: -5%; right: -5%; bottom: -5%;
   background-image:
-    radial-gradient(ellipse 30% 60% at 15% 0%,  rgba(120,180,60,0.13) 0%, transparent 70%),
-    radial-gradient(ellipse 20% 50% at 75% 0%,  rgba(100,160,40,0.10) 0%, transparent 65%),
-    radial-gradient(ellipse 15% 40% at 45% 5%,  rgba(140,200,70,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(4,10,5,0.9) 0%, transparent 80%),
-    linear-gradient(180deg, #0a1a0c 0%, #0d2010 40%, #0a1a0c 70%, #060e07 100%);
+    repeating-linear-gradient(90deg,
+      rgba(170,200,120,0.45) 0px, rgba(170,200,120,0.45) 26px,
+      rgba(80,110,60,0.30) 26px, rgba(80,110,60,0.30) 58px,
+      rgba(15,30,15,0.55) 58px, rgba(15,30,15,0.55) 92px,
+      rgba(130,165,90,0.40) 92px, rgba(130,165,90,0.40) 120px,
+      rgba(25,40,20,0.60) 120px, rgba(25,40,20,0.60) 168px
+    ),
+    linear-gradient(180deg, rgba(60,100,55,0.6) 0%, rgba(15,35,16,0.8) 55%, rgba(4,10,5,0.95) 100%);
+  filter: blur(16px) brightness(0.75);
+}
+#cf::after {
+  /* 中央への暗いビネット（文字の視認性確保） */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(4,10,5,0.45) 0%, rgba(4,10,5,0.78) 75%, rgba(2,6,3,0.92) 100%);
 }
 .cf-inner {
   width: 100%;
   max-width: 840px;
+  position: relative;
+  z-index: 1;
 }
 .cf-name { font-size: 1.1rem; letter-spacing: 0.62em; color: rgba(140,195,100,0.5); margin-bottom: 60px; font-family: 'Shippori Mincho B1', serif; }
 .cf-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(100,180,50,0.4), transparent); margin-bottom: 120px; }
 .cf-body { font-family: 'Shippori Mincho B1', serif; font-size: 2.2rem; line-height: 3.0; letter-spacing: 0.13em; color: #e8f5e0; margin-bottom: 100px; text-shadow: 0 0 60px rgba(100,200,60,0.15); }
 .cf-by { font-size: 1.1rem; letter-spacing: 0.5em; color: rgba(140,195,100,0.6); font-family: 'Shippori Mincho B1', serif; }
 
-/* ── Responsive ── */
-@media (max-width: 480px) {
-  header { padding: 28px 20px 0; }
-  .hr-branch { margin: 18px 20px 0; }
-  #quote-sec { padding: 12px 20px; }
-  #controls { padding: 0 20px 16px; }
-  .ctrl { padding: 10px 14px; min-width: 46px; }
-  .icon-btn { padding: 10px 14px; min-width: 46px; }
-  #fav-sec { padding: 24px 20px 40px; }
-  #q-text { font-size: clamp(0.95rem, 4vw, 1.1rem); line-height: 2.3; }
-  .date-str { margin-bottom: 18px; font-size: 0.68rem; }
-  #q-author { margin-top: 16px; }
+/* ── 画像保存プレビューモーダル ── */
+.img-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 200;
+  background: #0a1a0c;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 11dvh;
+  overflow-y: auto;
+  gap: 4dvh;
 }
+.modal-img {
+  width: 62%;
+  max-width: 300px;
+  aspect-ratio: 1080 / 1920;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.modal-hint {
+  color: rgba(160,210,130,0.7);
+  font-family: 'Hiragino Kaku Gothic Std', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-align: center;
+  flex-shrink: 0;
+}
+.modal-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 67%;
+  max-width: 320px;
+  padding: 1.6dvh 0;
+  border: 1px solid rgba(140,190,100,0.3);
+  background: none;
+  color: rgba(160,210,130,0.7);
+  font-family: 'Hiragino Kaku Gothic Std', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.25s;
+}
+.modal-back-btn:hover { background: rgba(140,190,100,0.08); }
+.modal-back-btn svg { width: 1em; height: 1em; }
+
 </style>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
@@ -577,72 +729,110 @@ header {
 
 <div id="app">
 
-<header>
-  <span class="site-name">深 呼 吸 を す る 森</span>
-</header>
+<div class="glass-card">
 
-<div class="hr-branch"></div>
-
-<!-- Quote -->
-<section id="quote-sec">
-  <p class="date-str" id="date-str"></p>
-  <div id="q-card">
-    <p id="q-text"></p>
-    <p id="q-author"></p>
-    <button class="desc-btn" id="desc-btn" onclick="openDesc()">― 解 説 を 読 む ―</button>
-  </div>
-</section>
-
-<div id="controls">
-  <div class="btn-row">
-    <button class="ctrl icon-btn" id="fav-btn" onclick="toggleFav()">♡</button>
-    <button class="ctrl icon-btn" onclick="shareQuote()">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 2L11 13"/>
-    <path d="M22 2L15 22 11 13 2 9l20-7z"/>
-  </svg>
-</button>
-    <button class="ctrl icon-btn" onclick="saveImg()">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-    <polyline points="7 10 12 15 17 10"/>
-    <line x1="12" y1="15" x2="12" y2="3"/>
-  </svg>
-</button>
-  </div>
-  <div class="q-nav-row">
-    <button class="q-nav-btn" onclick="showPrevQuote()">←</button>
-    <button class="q-nav-btn" onclick="showRandomQuote()">→</button>
-  </div>
-  <button class="nav-fav-btn" id="fav-tab" onclick="toggleFavSection()">
-    お 気 に 入 り<span class="nav-badge" id="badge"></span>
+  <button class="menu-btn" id="menu-btn" onclick="toggleMenu()" aria-label="メニュー" aria-haspopup="true" aria-expanded="false">
+    <svg class="icon-hamburger" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
-</div>
 
-<!-- Favorites -->
-<section id="fav-sec">
-  <p class="fav-sec-title">お 気 に 入 り の 言 葉</p>
-  <div class="fav-list" id="fav-list"></div>
-  <div class="back-row">
-    <button class="save-link" onclick="goQuote()">← 今 日 の 言 葉 に 戻 る</button>
-  </div>
-</section>
+  <nav class="menu-nav" id="menu-nav">
+    <ul class="menu-nav-list">
+      <li class="menu-nav-item">
+        <button class="menu-nav-btn" id="fav-tab" onclick="goFavsFromMenu()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          お気に入りの言葉
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 名言ナビ矢印 -->
+  <button class="edge-nav edge-nav--prev" onclick="showPrevQuote()" aria-label="前の言葉">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="edge-nav edge-nav--next" onclick="showRandomQuote()" aria-label="次の言葉">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+
+  <!-- Quote -->
+  <section id="quote-sec">
+    <p class="date-str" id="date-str"></p>
+    <div id="q-card">
+      <p id="q-text"></p>
+      <p id="q-author"></p>
+      <button class="desc-btn" id="desc-btn" onclick="openDesc()">― 解 説 を 読 む ―</button>
+    </div>
+
+    <button class="icon-circle" id="fav-btn" onclick="toggleFav()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </button>
+    <button class="icon-circle" id="share-btn" onclick="shareQuote()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+    </button>
+    <button class="icon-circle" id="save-btn" onclick="saveImg()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </button>
+
+    <p class="card-footer" id="card-footer">深 呼 吸 す る 森 ©️ 橘 川 幸 夫</p>
+  </section>
+
+  <!-- Favorites -->
+  <section id="fav-sec">
+    <div class="fav-head">
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      <span class="fav-head-title">お気に入りの言葉</span>
+    </div>
+    <button class="fav-close" onclick="goQuote()" aria-label="閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="fav-list" id="fav-list"></div>
+
+    <div class="fav-empty-state">
+      <p class="fav-empty-msg">まだお気に入りはありません。<br>今日の言葉から保存してみましょう。</p>
+      <button class="fav-back-btn" onclick="goQuote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        今日の言葉に戻る
+      </button>
+    </div>
+    <p class="fav-footer">深 呼 吸 す る 森 ©️ 橘 川 幸 夫</p>
+  </section>
+
+</div>
 
 </div>
 
 
 
 <!-- 画像プレビューモーダル -->
-<div id="img-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:center;padding:env(safe-area-inset-top, 24px) 24px env(safe-area-inset-bottom, 24px);overflow-y:auto;gap:16px;">
-  <img id="modal-img" src="" style="width:100%;max-width:360px;object-fit:contain;border:1px solid rgba(100,170,60,0.3);flex-shrink:1;min-height:0;" />
-  <p style="color:rgba(160,210,130,0.8);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;text-align:center;flex-shrink:0;">画像を長押しして「写真に保存」</p>
-  <button onclick="closeImgModal()" style="margin:4px 0 8px;background:none;border:1px solid rgba(140,190,100,0.3);color:rgba(160,210,130,0.7);font-family:'Shippori Mincho B1',serif;font-size:0.68rem;letter-spacing:0.35em;padding:10px 32px;cursor:pointer;flex-shrink:0;">閉 じ る</button>
+<div id="img-modal" class="img-modal">
+  <img id="modal-img" src="" class="modal-img" />
+  <p class="modal-hint">画像を長押しして「写真に保存」</p>
+  <button onclick="closeImgModal()" class="modal-back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    前のページに戻る
+  </button>
 </div>
 
 <!-- Off-screen capture -->
 <div id="cf">
   <div class="cf-inner">
-    <div class="cf-name">深 呼 吸 を す る 森</div>
+    <div class="cf-name">深 呼 吸 す る 森</div>
     <div class="cf-rule"></div>
     <div class="cf-body" id="cf-body"></div>
   
@@ -736,20 +926,14 @@ function pop(msg) {
 
 function syncFavBtn() {
   const btn=document.getElementById('fav-btn');
-  if(isFaved()){ btn.classList.add('fav-on'); btn.innerHTML='♥'; }
-  else { btn.classList.remove('fav-on'); btn.innerHTML='♡'; }
+  btn.classList.toggle('fav-on', isFaved());
 }
-function syncBadge() {
-  const c=getFavs().length;
-  document.getElementById('badge').textContent=c>0?` (${c})`:'';
-}
-
 function toggleFav() {
   const q=todayQ(); let favs=getFavs();
   const i=favs.findIndex(f=>f.text===q.text);
-  if(i>=0){ favs.splice(i,1); pop('お気に入りから削除しました'); }
-  else { favs.unshift({...q,date:dateKey()}); pop('お気に入りに追加しました'); }
-  setFavs(favs); syncFavBtn(); syncBadge();
+  if(i>=0){ favs.splice(i,1); }
+  else { favs.unshift({...q,date:dateKey()}); }
+  setFavs(favs); syncFavBtn();
 }
 
 function openDesc() {
@@ -791,10 +975,15 @@ function showPrevQuote() {
 }
 
 async function shareQuote() {
-  const q = todayQ();
-  const text = q.text;
+  await shareText(todayQ().text);
+}
+async function shareFavItem(i) {
+  const f = getFavs()[i];
+  if (f) await shareText(f.text);
+}
+async function shareText(text) {
   if (navigator.share) {
-    try { await navigator.share({ title: '深呼吸をする森', text }); }
+    try { await navigator.share({ title: '深呼吸する森', text }); }
     catch(e) { if (e.name !== 'AbortError') copyFallback(text); }
   } else {
     copyFallback(text);
@@ -807,9 +996,14 @@ function copyFallback(text) {
 }
 
 async function saveImg() {
-  pop('画像を生成しています...');
-  const q=todayQ();
-  document.getElementById('cf-body').textContent=q.text;
+  await saveImgFromText(todayQ().text);
+}
+async function saveFavItem(i) {
+  const f = getFavs()[i];
+  if (f) await saveImgFromText(f.text);
+}
+async function saveImgFromText(text) {
+  document.getElementById('cf-body').textContent=text;
   try {
     const canvas=await html2canvas(document.getElementById('cf'),{
       scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
@@ -836,47 +1030,105 @@ function closeImgModal(){
   document.getElementById('img-modal').style.display='none';
 }
 
+function toggleMenu() {
+  const nav = document.getElementById('menu-nav');
+  const btn = document.getElementById('menu-btn');
+  const open = nav.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.querySelector('.icon-hamburger').style.display = open ? 'none' : '';
+  btn.querySelector('.icon-close').style.display = open ? '' : 'none';
+}
+function closeMenu() {
+  const nav = document.getElementById('menu-nav');
+  const btn = document.getElementById('menu-btn');
+  nav.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.querySelector('.icon-hamburger').style.display = '';
+  btn.querySelector('.icon-close').style.display = 'none';
+}
+function goFavsFromMenu() {
+  closeMenu();
+  goFavs();
+}
+
 function goFavs() {
   document.getElementById('quote-sec').style.display='none';
-  document.getElementById('controls').style.display='none';
-  document.getElementById('fav-sec').style.display='block';
+  document.getElementById('fav-sec').style.display='flex';
   document.getElementById('fav-tab').classList.add('active');
-  document.querySelector('.hr-branch').style.display='none';
+  document.querySelector('.glass-card').classList.add('fav-mode');
   renderFavs();
 }
 function goQuote() {
   document.getElementById('fav-sec').style.display='none';
   document.getElementById('quote-sec').style.display='';
-  document.getElementById('controls').style.display='';
   document.getElementById('fav-tab').classList.remove('active');
-  document.querySelector('.hr-branch').style.display='';
-}
-function toggleFavSection() {
-  const isShowing = document.getElementById('fav-sec').style.display === 'block';
-  if (isShowing) goQuote(); else goFavs();
+  document.querySelector('.glass-card').classList.remove('fav-mode');
 }
 
 function renderFavs() {
   const list=document.getElementById('fav-list');
+  const sec=document.getElementById('fav-sec');
   const favs=getFavs();
-  if(!favs.length){
-    list.innerHTML='<div class="fav-empty">まだお気に入りはありません。<br>今日の名言から保存してみましょう。</div>';
+  const empty=!favs.length;
+  sec.classList.toggle('is-empty', empty);
+  if(empty){
+    list.innerHTML='';
     return;
   }
   list.innerHTML=favs.map((f,i)=>`
     <div class="fav-item">
-      <button class="fav-del" onclick="delFav(${i})">✕</button>
       <p class="fav-text">${f.text}</p>
-
+      <div class="fav-item-icons">
+        <button class="fav-icon-btn fav-icon-heart" onclick="delFav(${i})" aria-label="お気に入りから削除">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <button class="fav-icon-btn" onclick="shareFavItem(${i})" aria-label="共有">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </button>
+        <button class="fav-icon-btn" onclick="saveFavItem(${i})" aria-label="画像保存">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </button>
+      </div>
     </div>`).join('');
 }
 function delFav(i) {
   const favs=getFavs(); favs.splice(i,1); setFavs(favs);
-  syncBadge(); renderFavs(); pop('削除しました');
+  renderFavs(); pop('削除しました');
 }
 
 /* ── スワイプ名言管理 ── */
 let currentIdx = dayIdx() % QUOTES.length;
+
+function applyQText(te, text) {
+  te.textContent = text;
+  te.style.fontSize = '';
+  requestAnimationFrame(() => fitQText(te));
+}
+
+// 本文がアイコン行に被りそうな場合だけ、被らなくなるまで文字サイズを少しずつ縮小する
+function fitQText(te) {
+  const favBtn = document.getElementById('fav-btn');
+  if (!te || !favBtn) return;
+  te.style.fontSize = '';
+  const baseSize = parseFloat(getComputedStyle(te).fontSize);
+  const minSize = baseSize * 0.6;
+  const iconTop = favBtn.getBoundingClientRect().top;
+  let size = baseSize;
+  while (te.getBoundingClientRect().bottom > iconTop - 8 && size > minSize) {
+    size -= 1;
+    te.style.fontSize = size + 'px';
+  }
+}
 
 function showQuote(idx, direction) {
   const te = document.getElementById('q-text');
@@ -897,7 +1149,7 @@ function showQuote(idx, direction) {
     de.textContent = jaDate();
     de.style.opacity = '1';
 
-    te.textContent = q.text;
+    applyQText(te, q.text);
     ae.textContent = '';
     te.classList.remove('slide-up','slide-down','show');
     ae.classList.remove('slide-up','slide-down','show');
@@ -941,16 +1193,20 @@ function getOrSetTodayIndex() {
   const te = document.getElementById('q-text');
   const ae = document.getElementById('q-author');
   setTimeout(() => {
-    te.textContent = q.text;
+    applyQText(te, q.text);
     ae.textContent = '';
     requestAnimationFrame(() => { te.classList.add('show'); ae.classList.add('show'); });
   }, 300);
-  syncFavBtn(); syncBadge(); syncDescBtn();
+  syncFavBtn(); syncDescBtn();
 
   // ローディング画面を非表示
   const loadingScreen = document.getElementById('loading-screen');
   loadingScreen.classList.add('hidden');
   setTimeout(() => loadingScreen.style.display = 'none', 800);
+
+  window.addEventListener('resize', () => requestAnimationFrame(() => {
+    fitQText(document.getElementById('q-text'));
+  }));
 })();
 </script>
 </body>
