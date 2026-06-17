@@ -646,6 +646,33 @@ body::after {
 .cf-body { font-family: 'Shippori Mincho B1', serif; font-size: 72px; line-height: 2.4; letter-spacing: 0.13em; color: #ffffff; }
 .cf-by { font-size: 1.1rem; letter-spacing: 0.5em; color: rgba(140,195,100,0.6); font-family: 'Shippori Mincho B1', serif; }
 
+/* ── PC Capture frame (壁紙サイズ 1920x1080) ── */
+#cf-pc {
+  position: fixed; left: -9999px; top: 0;
+  width: 1920px;
+  height: 1080px;
+  background: #060e07;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  padding: 0 200px 0 200px;
+  overflow: hidden;
+}
+#cf-pc::before {
+  content: '';
+  position: absolute;
+  top: -5%; left: -5%; right: -5%; bottom: -5%;
+  background: url('save-bg-pc.jpg') center/cover no-repeat;
+}
+.cf-pc-inner {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  z-index: 1;
+}
+
 /* ── 画像保存プレビューモーダル ── */
 .img-modal {
   display: none;
@@ -825,7 +852,14 @@ body::after {
     <div class="cf-name">深 呼 吸 す る 森</div>
     <div class="cf-rule"></div>
     <div class="cf-body" id="cf-body"></div>
-  
+  </div>
+</div>
+
+<div id="cf-pc">
+  <div class="cf-pc-inner">
+    <div class="cf-name">深 呼 吸 す る 森</div>
+    <div class="cf-rule"></div>
+    <div class="cf-body" id="cf-pc-body"></div>
   </div>
 </div>
 
@@ -993,21 +1027,24 @@ async function saveFavItem(i) {
   if (f) await saveImgFromText(f.text);
 }
 async function saveImgFromText(text) {
-  document.getElementById('cf-body').textContent=text;
+  const isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
   try {
-    const canvas=await html2canvas(document.getElementById('cf'),{
-      scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
-    });
-    const dataUrl=canvas.toDataURL('image/png');
-    // スマホ判定
-    const isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
-    if(isMobile){
-      // モーダルで画像を表示して長押し保存を促す
+    let canvas, dataUrl;
+    if (isMobile) {
+      document.getElementById('cf-body').textContent=text;
+      canvas=await html2canvas(document.getElementById('cf'),{
+        scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
+      });
+      dataUrl=canvas.toDataURL('image/png');
       showImgModal(dataUrl);
     } else {
+      document.getElementById('cf-pc-body').textContent=text;
+      canvas=await html2canvas(document.getElementById('cf-pc'),{
+        scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1920, height:1080, windowWidth:1920
+      });
+      dataUrl=canvas.toDataURL('image/png');
       const a=document.createElement('a');
       a.download=`meigen-${dateKey()}.png`; a.href=dataUrl; a.click();
-      pop('画像を保存しました');
     }
   } catch(e){ pop('保存できませんでした'); }
 }
