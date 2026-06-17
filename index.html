@@ -631,20 +631,10 @@ body::after {
   overflow: hidden;
 }
 #cf::before {
-  /* 竹林の背景 */
   content: '';
   position: absolute;
   top: -5%; left: -5%; right: -5%; bottom: -5%;
-  background-image:
-    repeating-linear-gradient(90deg,
-      rgba(170,200,120,0.45) 0px, rgba(170,200,120,0.45) 26px,
-      rgba(80,110,60,0.30) 26px, rgba(80,110,60,0.30) 58px,
-      rgba(15,30,15,0.55) 58px, rgba(15,30,15,0.55) 92px,
-      rgba(130,165,90,0.40) 92px, rgba(130,165,90,0.40) 120px,
-      rgba(25,40,20,0.60) 120px, rgba(25,40,20,0.60) 168px
-    ),
-    linear-gradient(180deg, rgba(60,100,55,0.6) 0%, rgba(15,35,16,0.8) 55%, rgba(4,10,5,0.95) 100%);
-  filter: blur(16px) brightness(0.75);
+  background: url('save-bg-sp.jpg') center/cover no-repeat;
 }
 #cf::after {
   /* 中央への暗いビネット（文字の視認性確保） */
