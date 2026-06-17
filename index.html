@@ -36,14 +36,16 @@ body::before {
   content: '';
   position: fixed; inset: 0; z-index: 0;
   background:
-    radial-gradient(ellipse 30% 60% at 15% 0%,  rgba(120,180,60,0.13) 0%, transparent 70%),
-    radial-gradient(ellipse 20% 50% at 75% 0%,  rgba(100,160,40,0.10) 0%, transparent 65%),
-    radial-gradient(ellipse 15% 40% at 45% 5%,  rgba(140,200,70,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 25% 55% at 88% 10%, rgba(90,150,30,0.09) 0%, transparent 65%),
-    radial-gradient(ellipse 100% 40% at 50% 100%, rgba(4,10,5,0.9) 0%, transparent 80%),
-    radial-gradient(ellipse 80% 30% at 50% 80%,  rgba(10,25,12,0.7) 0%, transparent 70%),
-    linear-gradient(180deg, #0a1a0c 0%, #0d2010 40%, #0a1a0c 70%, #060e07 100%);
+    linear-gradient(rgba(4,10,5,0.18), rgba(4,10,5,0.32)),
+    url('main-bg-sp.jpg') center/cover no-repeat;
   pointer-events: none;
+}
+@media (min-width: 768px) {
+  body::before {
+    background:
+      linear-gradient(rgba(4,10,5,0.18), rgba(4,10,5,0.32)),
+      url('main-bg-pc.jpg') center/cover no-repeat;
+  }
 }
 
 /* ── 霧のアニメーション ── */
@@ -353,7 +355,7 @@ body::after {
 
 /* ── お気に入りが空の場合（Figmaデザイン） ── */
 .glass-card.fav-mode {
-  background: linear-gradient(160deg, rgba(255,255,255,0.92) 0%, rgba(238,243,236,0.88) 100%);
+  background: linear-gradient(160deg, rgba(255,255,255,0.72) 0%, rgba(225,235,222,0.65) 100%);
   backdrop-filter: blur(27px);
   border-color: rgba(255,255,255,0.5);
 }
