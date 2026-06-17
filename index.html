@@ -1036,6 +1036,7 @@ async function saveImgFromText(text) {
     let canvas, dataUrl;
     if (isMobile) {
       document.getElementById('cf-body').textContent=text;
+      fitCfText(document.getElementById('cf-body'), document.getElementById('cf'), 1920);
       canvas=await html2canvas(document.getElementById('cf'),{
         scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
       });
@@ -1043,6 +1044,7 @@ async function saveImgFromText(text) {
       showImgModal(dataUrl);
     } else {
       document.getElementById('cf-pc-body').textContent=text;
+      fitCfText(document.getElementById('cf-pc-body'), document.getElementById('cf-pc'), 1080);
       canvas=await html2canvas(document.getElementById('cf-pc'),{
         scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1920, height:1080, windowWidth:1920
       });
@@ -1051,6 +1053,20 @@ async function saveImgFromText(text) {
       a.download=`meigen-${dateKey()}.png`; a.href=dataUrl; a.click();
     }
   } catch(e){ pop('保存できませんでした'); }
+}
+
+function fitCfText(bodyEl, containerEl, containerHeight) {
+  const baseSize = 72;
+  const minSize = 32;
+  bodyEl.style.fontSize = baseSize + 'px';
+  let size = baseSize;
+  while (size > minSize) {
+    const bodyBottom = bodyEl.getBoundingClientRect().bottom;
+    const containerBottom = containerEl.getBoundingClientRect().bottom;
+    if (bodyBottom <= containerBottom - 80) break;
+    size -= 2;
+    bodyEl.style.fontSize = size + 'px';
+  }
 }
 
 function showImgModal(dataUrl){
