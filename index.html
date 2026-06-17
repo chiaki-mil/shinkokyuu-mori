@@ -536,10 +536,17 @@ body::after {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(ellipse 30% 60% at 15% 0%,  rgba(120,180,60,0.13) 0%, transparent 70%),
-    radial-gradient(ellipse 20% 50% at 75% 0%,  rgba(100,160,40,0.10) 0%, transparent 65%),
-    #0a1a0c;
+    linear-gradient(rgba(4,12,5,0.15), rgba(4,12,5,0.35)),
+    url('bg-sp.jpg') center/cover no-repeat;
   transition: opacity 0.8s ease;
+}
+@media (min-width: 768px) {
+  #loading-screen {
+    background:
+      linear-gradient(rgba(4,12,5,0.15), rgba(4,12,5,0.35)),
+      url('bg-pc.jpg') center/cover no-repeat;
+  }
+}
 }
 #loading-screen.hidden {
   opacity: 0;
