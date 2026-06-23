@@ -685,10 +685,10 @@ body::after {
   background: #060e07;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  text-align: left;
-  padding: 0 200px 0 200px;
+  text-align: center;
+  padding: 100px 200px;
   overflow: hidden;
 }
 #cf-pc::before {
@@ -702,6 +702,10 @@ body::after {
   max-width: 1100px;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 /* ── 画像保存プレビューモーダル ── */
@@ -1111,15 +1115,22 @@ async function saveImgFromText(text) {
 
 function fitCfText(bodyEl, containerEl, containerHeight) {
   const baseSize = 72;
-  const minSize = 32;
+  const minSize = 28;
+  const baseLineHeight = 2.4;
+  const minLineHeight = 1.7;
   bodyEl.style.fontSize = baseSize + 'px';
+  bodyEl.style.lineHeight = baseLineHeight;
   let size = baseSize;
+  const paddingPx = parseFloat(getComputedStyle(containerEl).paddingTop) +
+                    parseFloat(getComputedStyle(containerEl).paddingBottom);
+  const available = containerHeight - paddingPx;
   while (size > minSize) {
-    const bodyBottom = bodyEl.getBoundingClientRect().bottom;
-    const containerBottom = containerEl.getBoundingClientRect().bottom;
-    if (bodyBottom <= containerBottom - 80) break;
+    const innerH = containerEl.querySelector('.cf-inner, .cf-pc-inner').scrollHeight;
+    if (innerH <= available) break;
     size -= 2;
     bodyEl.style.fontSize = size + 'px';
+    const ratio = (size - minSize) / (baseSize - minSize);
+    bodyEl.style.lineHeight = minLineHeight + ratio * (baseLineHeight - minLineHeight);
   }
 }
 
