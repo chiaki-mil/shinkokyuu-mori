@@ -13,13 +13,14 @@
   <meta name="twitter:image" content="https://chiaki-mil.github.io/shinkokyuu-mori/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>深呼吸する森</title>
-<link rel="icon" type="image/png" href="apple-touch-icon.png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="深呼吸する森">
   <meta name="theme-color" content="#08130a">
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700&family=Noto+Serif+JP:wght@300;400&family=Zen+Old+Mincho:wght@400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -624,46 +625,54 @@ body::after {
   background: #060e07;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 120px 120px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 660px 120px 120px 120px;
   overflow: hidden;
 }
 #cf::before {
-  /* 竹林の背景 */
   content: '';
   position: absolute;
   top: -5%; left: -5%; right: -5%; bottom: -5%;
-  background-image:
-    repeating-linear-gradient(90deg,
-      rgba(170,200,120,0.45) 0px, rgba(170,200,120,0.45) 26px,
-      rgba(80,110,60,0.30) 26px, rgba(80,110,60,0.30) 58px,
-      rgba(15,30,15,0.55) 58px, rgba(15,30,15,0.55) 92px,
-      rgba(130,165,90,0.40) 92px, rgba(130,165,90,0.40) 120px,
-      rgba(25,40,20,0.60) 120px, rgba(25,40,20,0.60) 168px
-    ),
-    linear-gradient(180deg, rgba(60,100,55,0.6) 0%, rgba(15,35,16,0.8) 55%, rgba(4,10,5,0.95) 100%);
-  filter: blur(16px) brightness(0.75);
-}
-#cf::after {
-  /* 中央への暗いビネット（文字の視認性確保） */
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(4,10,5,0.45) 0%, rgba(4,10,5,0.78) 75%, rgba(2,6,3,0.92) 100%);
+  background: url('save-bg-sp.jpg') center/cover no-repeat;
 }
 .cf-inner {
   width: 100%;
-  max-width: 840px;
   position: relative;
   z-index: 1;
 }
-.cf-name { font-size: 1.1rem; letter-spacing: 0.62em; color: rgba(140,195,100,0.5); margin-bottom: 60px; font-family: 'Shippori Mincho B1', serif; }
-.cf-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(100,180,50,0.4), transparent); margin-bottom: 120px; }
-.cf-body { font-family: 'Shippori Mincho B1', serif; font-size: 2.2rem; line-height: 3.0; letter-spacing: 0.13em; color: #e8f5e0; margin-bottom: 100px; text-shadow: 0 0 60px rgba(100,200,60,0.15); }
+.cf-name { font-size: 43px; font-family: 'Zen Old Mincho', serif; font-weight: 400; letter-spacing: 0.4em; line-height: 54px; color: rgba(255,255,255,0.5); margin-bottom: 100px; text-align: center; }
+.cf-rule { display: none; }
+.cf-body { font-family: 'Shippori Mincho B1', serif; font-size: 72px; line-height: 2.4; letter-spacing: 0.13em; color: #ffffff; }
 .cf-by { font-size: 1.1rem; letter-spacing: 0.5em; color: rgba(140,195,100,0.6); font-family: 'Shippori Mincho B1', serif; }
+
+/* ── PC Capture frame (壁紙サイズ 1920x1080) ── */
+#cf-pc {
+  position: fixed; left: -9999px; top: 0;
+  width: 1920px;
+  height: 1080px;
+  background: #060e07;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  padding: 0 200px 0 200px;
+  overflow: hidden;
+}
+#cf-pc::before {
+  content: '';
+  position: absolute;
+  top: -5%; left: -5%; right: -5%; bottom: -5%;
+  background: url('save-bg-pc.jpg') center/cover no-repeat;
+}
+.cf-pc-inner {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  z-index: 1;
+}
 
 /* ── 画像保存プレビューモーダル ── */
 .img-modal {
@@ -671,6 +680,7 @@ body::after {
   position: fixed; inset: 0; z-index: 200;
   background: #0a1a0c;
   flex-direction: column;
+  user-select: none; -webkit-user-select: none;
   align-items: center;
   padding-top: 11dvh;
   overflow-y: auto;
@@ -684,10 +694,11 @@ body::after {
   flex-shrink: 0;
 }
 .modal-hint {
-  color: rgba(160,210,130,0.7);
+  color: rgba(255,255,255,0.65);
   font-family: 'Hiragino Kaku Gothic Std', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
   font-size: 0.7rem;
-  letter-spacing: 0.3em;
+  font-weight: 200;
+  letter-spacing: 0.07em;
   text-align: center;
   flex-shrink: 0;
 }
@@ -699,12 +710,13 @@ body::after {
   width: 67%;
   max-width: 320px;
   padding: 1.6dvh 0;
-  border: 1px solid rgba(140,190,100,0.3);
+  border: 1px solid rgba(255,255,255,0.35);
   background: none;
-  color: rgba(160,210,130,0.7);
+  color: rgba(255,255,255,0.65);
   font-family: 'Hiragino Kaku Gothic Std', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
   font-size: 0.78rem;
-  letter-spacing: 0.3em;
+  font-weight: 200;
+  letter-spacing: 0.07em;
   cursor: pointer;
   flex-shrink: 0;
   transition: background 0.25s;
@@ -844,7 +856,14 @@ body::after {
     <div class="cf-name">深 呼 吸 す る 森</div>
     <div class="cf-rule"></div>
     <div class="cf-body" id="cf-body"></div>
-  
+  </div>
+</div>
+
+<div id="cf-pc">
+  <div class="cf-pc-inner">
+    <div class="cf-name">深 呼 吸 す る 森</div>
+    <div class="cf-rule"></div>
+    <div class="cf-body" id="cf-pc-body"></div>
   </div>
 </div>
 
@@ -1012,23 +1031,42 @@ async function saveFavItem(i) {
   if (f) await saveImgFromText(f.text);
 }
 async function saveImgFromText(text) {
-  document.getElementById('cf-body').textContent=text;
+  const isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
   try {
-    const canvas=await html2canvas(document.getElementById('cf'),{
-      scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
-    });
-    const dataUrl=canvas.toDataURL('image/png');
-    // スマホ判定
-    const isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
-    if(isMobile){
-      // モーダルで画像を表示して長押し保存を促す
+    let canvas, dataUrl;
+    if (isMobile) {
+      document.getElementById('cf-body').textContent=text;
+      fitCfText(document.getElementById('cf-body'), document.getElementById('cf'), 1920);
+      canvas=await html2canvas(document.getElementById('cf'),{
+        scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
+      });
+      dataUrl=canvas.toDataURL('image/png');
       showImgModal(dataUrl);
     } else {
+      document.getElementById('cf-pc-body').textContent=text;
+      fitCfText(document.getElementById('cf-pc-body'), document.getElementById('cf-pc'), 1080);
+      canvas=await html2canvas(document.getElementById('cf-pc'),{
+        scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1920, height:1080, windowWidth:1920
+      });
+      dataUrl=canvas.toDataURL('image/png');
       const a=document.createElement('a');
       a.download=`meigen-${dateKey()}.png`; a.href=dataUrl; a.click();
-      pop('画像を保存しました');
     }
   } catch(e){ pop('保存できませんでした'); }
+}
+
+function fitCfText(bodyEl, containerEl, containerHeight) {
+  const baseSize = 72;
+  const minSize = 32;
+  bodyEl.style.fontSize = baseSize + 'px';
+  let size = baseSize;
+  while (size > minSize) {
+    const bodyBottom = bodyEl.getBoundingClientRect().bottom;
+    const containerBottom = containerEl.getBoundingClientRect().bottom;
+    if (bodyBottom <= containerBottom - 80) break;
+    size -= 2;
+    bodyEl.style.fontSize = size + 'px';
+  }
 }
 
 function showImgModal(dataUrl){
