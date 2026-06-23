@@ -225,9 +225,7 @@ body::after {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 1s ease 0.1s, transform 1s ease 0.1s;
-  text-shadow:
-    0 0 60px rgba(100,200,60,0.15),
-    0 1px 2px rgba(0,0,0,0.8);
+  text-shadow: none;
 }
 #q-text.show { opacity: 1; transform: none; }
 
@@ -279,7 +277,7 @@ body::after {
   top: 91.5%; left: 0; right: 0;
   text-align: center;
   font-size: clamp(0.8rem, 2.96cqw, 1.05rem);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.08em;
   color: rgba(255,255,255,0.6);
 }
 
@@ -786,26 +784,26 @@ body::after {
     </div>
 
     <button class="icon-circle" id="fav-btn" onclick="toggleFav()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
       </svg>
     </button>
     <button class="icon-circle" id="share-btn" onclick="shareQuote()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
         <polyline points="15 3 21 3 21 9"/>
         <line x1="10" y1="14" x2="21" y2="3"/>
       </svg>
     </button>
     <button class="icon-circle" id="save-btn" onclick="saveImg()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
     </button>
 
-    <p class="card-footer" id="card-footer">深 呼 吸 す る 森 ©️ 橘 川 幸 夫</p>
+    <p class="card-footer" id="card-footer">深呼吸する森 © 橘川幸夫</p>
   </section>
 
   <!-- Favorites -->
@@ -831,7 +829,7 @@ body::after {
         今日の言葉に戻る
       </button>
     </div>
-    <p class="fav-footer">深 呼 吸 す る 森 ©️ 橘 川 幸 夫</p>
+    <p class="fav-footer">深呼吸する森 © 橘川幸夫</p>
   </section>
 
 </div>
