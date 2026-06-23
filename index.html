@@ -1112,7 +1112,8 @@ function getDeviceSize() {
 }
 
 async function saveImgFromText(text) {
-  const isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
+  const isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent) ||
+                 (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
   try {
     let canvas, dataUrl;
     if (isMobile) {
