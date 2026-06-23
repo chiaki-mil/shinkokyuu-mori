@@ -179,6 +179,45 @@ body::after {
   flex-shrink: 0;
 }
 
+/* ── メニューSNSセクション ── */
+.menu-sns-section {
+  width: 80%;
+  margin-top: 8cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4cqw;
+}
+.menu-divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin: 0;
+}
+.menu-sns-label {
+  font-size: clamp(0.7rem, 3cqw, 0.95rem);
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.45);
+  font-family: 'Shippori Mincho B1', serif;
+}
+.menu-sns-icons {
+  display: flex;
+  gap: 6cqw;
+  align-items: center;
+}
+.menu-sns-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+}
+.menu-sns-btn:hover { color: #fff; }
+.menu-sns-btn svg {
+  width: clamp(1.2rem, 5.5cqw, 1.6rem);
+  height: clamp(1.2rem, 5.5cqw, 1.6rem);
+}
+
 /* ── 名言ナビ矢印 ── */
 .edge-nav {
   position: absolute;
@@ -764,6 +803,24 @@ body::after {
         </button>
       </li>
     </ul>
+    <div class="menu-sns-section">
+      <hr class="menu-divider">
+      <p class="menu-sns-label">橘川幸夫のSNS</p>
+      <div class="menu-sns-icons">
+        <a href="#" class="menu-sns-btn" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+        </a>
+        <a href="#" class="menu-sns-btn" target="_blank" rel="noopener" aria-label="note">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.5 3H6C4.9 3 4 3.9 4 5v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8.5L14.5 3zm0 2.1L17.9 8.5H14.5V5.1zM6 19V5h6.5v5H18v9H6zm2-7h8v1.5H8V12zm0 3h5v1.5H8V15z"/></svg>
+        </a>
+        <a href="#" class="menu-sns-btn" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="menu-sns-btn" target="_blank" rel="noopener" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
   </nav>
 
   <!-- 名言ナビ矢印 -->
