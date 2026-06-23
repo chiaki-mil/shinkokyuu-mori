@@ -758,6 +758,31 @@ body::after {
 .modal-back-btn:hover { background: rgba(140,190,100,0.08); }
 .modal-back-btn svg { width: 1em; height: 1em; }
 
+.modal-ratio-btns {
+  display: flex;
+  gap: 2.5vw;
+  flex-shrink: 0;
+}
+.modal-ratio-btn {
+  padding: 1.2dvh 4vw;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: none;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 1.6;
+  transition: all 0.2s;
+}
+.modal-ratio-btn.active {
+  border-color: rgba(255,255,255,0.75);
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+
 </style>
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
   <script>
@@ -900,6 +925,12 @@ body::after {
 
 <!-- 画像プレビューモーダル -->
 <div id="img-modal" class="img-modal">
+  <div class="modal-ratio-btns">
+    <button class="modal-ratio-btn active" onclick="changeRatio(1080,1920,this)">9:16<br>標準</button>
+    <button class="modal-ratio-btn" onclick="changeRatio(1080,2340,this)">9:19.5<br>iPhone</button>
+    <button class="modal-ratio-btn" onclick="changeRatio(1080,2400,this)">9:20<br>Android</button>
+    <button class="modal-ratio-btn" onclick="changeRatio(1080,2556,this)">9:21.3<br>Pro Max</button>
+  </div>
   <img id="modal-img" src="" class="modal-img" />
   <p class="modal-hint">画像を長押しして「写真に保存」</p>
   <button onclick="closeImgModal()" class="modal-back-btn">
@@ -1099,7 +1130,7 @@ async function saveImgFromText(text) {
         scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:1080, height:1920, windowWidth:1080
       });
       dataUrl=canvas.toDataURL('image/png');
-      showImgModal(dataUrl);
+      showImgModal(dataUrl, text);
     } else {
       document.getElementById('cf-pc-body').textContent=text;
       fitCfText(document.getElementById('cf-pc-body'), document.getElementById('cf-pc'), 1080);
@@ -1134,7 +1165,27 @@ function fitCfText(bodyEl, containerEl, containerHeight) {
   }
 }
 
-function showImgModal(dataUrl){
+let _saveText = '';
+
+async function changeRatio(w, h, btn) {
+  document.querySelectorAll('.modal-ratio-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelector('.modal-img').style.aspectRatio = w + '/' + h;
+  const cf = document.getElementById('cf');
+  cf.style.height = h + 'px';
+  document.getElementById('cf-body').textContent = _saveText;
+  fitCfText(document.getElementById('cf-body'), cf, h);
+  const canvas = await html2canvas(cf, {
+    scale:1, backgroundColor:'#08130a', useCORS:true, logging:false, width:w, height:h, windowWidth:w
+  });
+  document.getElementById('modal-img').src = canvas.toDataURL('image/png');
+  cf.style.height = '';
+}
+
+function showImgModal(dataUrl, text){
+  _saveText = text;
+  document.querySelectorAll('.modal-ratio-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.querySelector('.modal-img').style.aspectRatio = '1080/1920';
   document.getElementById('img-modal').style.display='flex';
   document.getElementById('modal-img').src=dataUrl;
 }
