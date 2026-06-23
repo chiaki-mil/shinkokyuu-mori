@@ -279,6 +279,7 @@ body::after {
   position: absolute;
   top: 80%;
   width: 14.54%;
+  max-width: 64px;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: rgba(255,255,255,0.06);
@@ -304,6 +305,14 @@ body::after {
 #fav-btn { left: 17.06%; }
 #share-btn { left: 42.78%; }
 #save-btn { left: 68.5%; }
+
+@media (min-width: 768px) {
+  .icon-circle { top: auto; bottom: 10%; left: auto !important; position: absolute; }
+  #fav-btn   { left: calc(50% - 90px) !important; }
+  #share-btn { left: calc(50% - 32px) !important; }
+  #save-btn  { left: calc(50% + 26px) !important; }
+  .card-footer { top: auto; bottom: 4%; }
+}
 
 /* ── カードフッター ── */
 .card-footer {
