@@ -582,7 +582,7 @@ body::after {
   background:
     linear-gradient(rgba(4,12,5,0.15), rgba(4,12,5,0.35)),
     url('bg-sp.jpg') center/cover no-repeat;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.3s ease;
 }
 @media (min-width: 768px) {
   #loading-screen {
@@ -984,10 +984,14 @@ async function loadQuotes() {
   const cached = localStorage.getItem('mori_quotes_cache_date');
   const cachedQuotes = localStorage.getItem('mori_quotes_cache');
 
-  if (cached === today && cachedQuotes) {
-    QUOTES = JSON.parse(cachedQuotes);
-    quotesLoaded = true;
-    return;
+  if (cached && cachedQuotes) {
+    const cachedDate = new Date(cached);
+    const diffDays = (new Date() - cachedDate) / (1000 * 60 * 60 * 24);
+    if (diffDays < 15) {
+      QUOTES = JSON.parse(cachedQuotes);
+      quotesLoaded = true;
+      return;
+    }
   }
 
   try {
@@ -1345,7 +1349,7 @@ function getOrSetTodayIndex() {
   // ローディング画面を非表示
   const loadingScreen = document.getElementById('loading-screen');
   loadingScreen.classList.add('hidden');
-  setTimeout(() => loadingScreen.style.display = 'none', 800);
+  setTimeout(() => loadingScreen.style.display = 'none', 300);
 
   window.addEventListener('resize', () => requestAnimationFrame(() => {
     fitQText(document.getElementById('q-text'));
